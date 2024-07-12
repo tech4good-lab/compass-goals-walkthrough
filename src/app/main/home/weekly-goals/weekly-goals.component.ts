@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { WeeklyGoalsAnimations } from './weekly-goals.animations';
+import { WeeklyGoalsHeaderComponent } from './weekly-goals-header/weekly-goals-header.component';
+import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
+import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-modal.component';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -9,6 +12,10 @@ import { WeeklyGoalsAnimations } from './weekly-goals.animations';
   animations: WeeklyGoalsAnimations,
   standalone: true,
   imports: [
+    /** Component */
+    WeeklyGoalsHeaderComponent,
+    WeeklyGoalsItemComponent,
+    WeeklyGoalsModalComponent,
   ],
 })
 export class WeeklyGoalsComponent implements OnInit {
