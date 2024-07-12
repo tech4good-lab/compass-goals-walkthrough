@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withHashLocation, withPreloading, PreloadAllModules } from '@angular/router';
+import { provideRouter, withHashLocation, withComponentInputBinding, withPreloading, PreloadAllModules } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { importProvidersFrom } from '@angular/core';
@@ -15,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withHashLocation(),
+      withComponentInputBinding(),
       withPreloading(PreloadAllModules),
     ),
     provideAnimationsAsync(),
