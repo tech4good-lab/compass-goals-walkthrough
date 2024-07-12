@@ -10,22 +10,20 @@ $divider-color: rgba(0, 0, 0, 0.15);
   margin: 0;
   padding: 4px 0px;
   border-bottom: 1px solid $divider-color;
-  &:hover {
-    background: $goal-hover-background;
-  }
-  .goal-details {
-    width: 100%;
-    .goal-title {
-      margin: 0;
-      font-size: 16px;
-      padding: 10px 0px 4px 0px;
-    }
-    .bottom-row {
-      .goal-hashtag {
-        font-size: 13px;
-        font-weight: 400;
-        color: #EE8B72;
-      }
-    }
-  }
+}
+
+.goal-details {
+  width: 100%;
+}
+
+.goal-title {
+  margin: 0;
+  font-size: 16px;
+  padding: 10px 0px 4px 0px;
+}
+
+.goal-hashtag {
+  font-size: 13px;
+  font-weight: 400;
+  color: #EE8B72;
 }
