@@ -1,7 +1,7 @@
 import { inject, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthStore } from './core/store/auth/auth.store';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
