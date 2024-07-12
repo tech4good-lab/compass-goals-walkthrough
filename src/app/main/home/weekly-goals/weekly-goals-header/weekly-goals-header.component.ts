@@ -30,6 +30,11 @@ export class WeeklyGoalsHeaderComponent implements OnInit {
 
   // --------------- EVENT HANDLING ----------------------
 
+  /** Update weekly goal. */
+  editGoals() {
+    this.editClicked.emit(true);
+  }
+
   // --------------- OTHER -------------------------------
 
   constructor(

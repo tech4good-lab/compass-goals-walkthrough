@@ -1,5 +1,5 @@
 <div class="weekly-goals-container">
-  <app-weekly-goals-header/>
+  <app-weekly-goals-header (editClicked)="updateGoal($event)"/>
   <!-- For now, let's focus on the header and revisit the weekly goals item later -->
   <!-- <app-weekly-goals-item/> -->
 </div>
