@@ -1,7 +1,7 @@
 import { inject, effect, Component, OnInit, ChangeDetectionStrategy, Signal } from '@angular/core';
 import { HomeAnimations } from './home.animations';
-import { User } from '../../core/store/user/user.model';
-import { AuthStore } from '../../core/store/auth/auth.store';
+import { User } from 'src/app/core/store/user/user.model';
+import { AuthStore } from 'src/app/core/store/auth/auth.store';
 
 @Component({
   selector: 'app-home',
