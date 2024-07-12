@@ -10,7 +10,6 @@ import { LandingAnimations } from './landing.animations';
   standalone: true,
 })
 export class LandingComponent implements OnInit {
-
   // --------------- INPUTS AND OUTPUTS ------------------
 
   // --------------- LOCAL UI STATE ----------------------

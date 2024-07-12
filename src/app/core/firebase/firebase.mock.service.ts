@@ -49,13 +49,13 @@ export class FirebaseMockService implements DatabaseService {
     private injector: Injector,
   ) {
     // Init Entity Models
-    patchState(this.DB['weeklyGoalReflections'], setAllEntities(WEEKLYGOALREFLECTION_DB,  { selectId }));
-    patchState(this.DB['quarterlyGoalReflections'], setAllEntities(QUARTERLYGOALREFLECTION_DB,  { selectId }));
-    patchState(this.DB['longTermGoalReflections'], setAllEntities(LONGTERMGOALREFLECTION_DB,  { selectId }));
-    patchState(this.DB['hashtags'], setAllEntities(HASHTAG_DB,  { selectId }));
-    patchState(this.DB['longTermGoals'], setAllEntities(LONGTERMGOAL_DB,  { selectId }));
-    patchState(this.DB['weeklyGoals'], setAllEntities(WEEKLYGOAL_DB,  { selectId }));
-    patchState(this.DB['quarterlyGoals'], setAllEntities(QUARTERLYGOAL_DB,  { selectId }));
+    patchState(this.DB['weeklyGoalReflections'], setAllEntities(WEEKLYGOALREFLECTION_DB, { selectId }));
+    patchState(this.DB['quarterlyGoalReflections'], setAllEntities(QUARTERLYGOALREFLECTION_DB, { selectId }));
+    patchState(this.DB['longTermGoalReflections'], setAllEntities(LONGTERMGOALREFLECTION_DB, { selectId }));
+    patchState(this.DB['hashtags'], setAllEntities(HASHTAG_DB, { selectId }));
+    patchState(this.DB['longTermGoals'], setAllEntities(LONGTERMGOAL_DB, { selectId }));
+    patchState(this.DB['weeklyGoals'], setAllEntities(WEEKLYGOAL_DB, { selectId }));
+    patchState(this.DB['quarterlyGoals'], setAllEntities(QUARTERLYGOAL_DB, { selectId }));
     patchState(this.DB['users'], setAllEntities(USER_DB, { selectId }));
     patchState(this.DB['userContexts'], setAllEntities(USERCONTEXT_DB, { selectId }));
   }
@@ -239,7 +239,7 @@ export class FirebaseMockService implements DatabaseService {
 
     if (batch) {
       const docRef = {
-        path: `${collectionName}/${entity.__id}`
+        path: `${collectionName}/${entity.__id}`,
       };
       return batch.set(docRef, entityFinal);
     } else {
@@ -256,7 +256,7 @@ export class FirebaseMockService implements DatabaseService {
 
     if (batch) {
       const docRef = {
-        path: `${collectionName}/${id}`
+        path: `${collectionName}/${id}`,
       };
       return batch.update(docRef, changesFinal);
     } else {
@@ -274,7 +274,7 @@ export class FirebaseMockService implements DatabaseService {
 
     if (batch) {
       const docRef = {
-        path: `${collectionName}/${id}`
+        path: `${collectionName}/${id}`,
       };
       return batch.update(docRef, changes);
     } else {

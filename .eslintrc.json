@@ -99,7 +99,7 @@
         "*.spec.ts",
         "*.effects.ts",
         "src/app/core/store/**/*.service.ts",
-        "src/app/core/firebase/firebase.service.ts",
+        "src/app/core/firebase/*.service.ts",
         "src/app/core/analytics/time-analytics.service.ts",
         "src/app/core/setup/module-import-guard.ts"
       ],

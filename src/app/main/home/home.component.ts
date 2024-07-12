@@ -10,7 +10,6 @@ import { HomeAnimations } from './home.animations';
   animations: HomeAnimations,
 })
 export class HomeComponent implements OnInit {
-  
   // --------------- INPUTS AND OUTPUTS ------------------
 
   // --------------- LOCAL UI STATE ----------------------
@@ -25,7 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   // --------------- LOAD AND CLEANUP --------------------
-  
+
   ngOnInit() {
   }
 }

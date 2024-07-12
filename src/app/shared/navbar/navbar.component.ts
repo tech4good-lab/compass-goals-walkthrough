@@ -12,7 +12,6 @@ import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
   imports: [MatMenuTrigger, MatMenu],
 })
 export class NavbarComponent implements OnInit {
-
   // --------------- INPUTS AND OUTPUTS ------------------
 
   // --------------- LOCAL UI STATE ----------------------
