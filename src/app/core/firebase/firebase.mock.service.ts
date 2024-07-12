@@ -8,11 +8,18 @@ import { AnyEntity, QueryParams, QueryOptions } from '../store/app.model';
 import { DatabaseService } from './database.service';
 import { SelectEntityId, setAllEntities } from '@ngrx/signals/entities';
 import { patchState } from '@ngrx/signals';
-import { AuthDB } from '../store/auth/auth.mock';
+import { AuthMockDB } from '../store/auth/auth.mock';
 
 // Entity Model DB Data
-import { UserDB, USER_DB } from '../store/user/user.mock';
-import { UserContextDB, USERCONTEXT_DB } from '../store/user-context/user-context.mock';
+import { WeeklyGoalReflectionMockDB, WEEKLYGOALREFLECTION_DB } from '../store/weekly-goal-reflection/weekly-goal-reflection.mock';
+import { QuarterlyGoalReflectionMockDB, QUARTERLYGOALREFLECTION_DB } from '../store/quarterly-goal-reflection/quarterly-goal-reflection.mock';
+import { LongTermGoalReflectionMockDB, LONGTERMGOALREFLECTION_DB } from '../store/long-term-goal-reflection/long-term-goal-reflection.mock';
+import { HashtagMockDB, HASHTAG_DB } from '../store/hashtag/hashtag.mock';
+import { LongTermGoalMockDB, LONGTERMGOAL_DB } from '../store/long-term-goal/long-term-goal.mock';
+import { WeeklyGoalMockDB, WEEKLYGOAL_DB } from '../store/weekly-goal/weekly-goal.mock';
+import { QuarterlyGoalMockDB, QUARTERLYGOAL_DB } from '../store/quarterly-goal/quarterly-goal.mock';
+import { UserMockDB, USER_DB } from '../store/user/user.mock';
+import { UserContextMockDB, USERCONTEXT_DB } from '../store/user-context/user-context.mock';
 
 const selectId: SelectEntityId<AnyEntity> = (entity) => entity.__id;
 
@@ -20,10 +27,17 @@ const selectId: SelectEntityId<AnyEntity> = (entity) => entity.__id;
   providedIn: 'root',
 })
 export class FirebaseMockService implements DatabaseService {
-  readonly authDB = inject(AuthDB);
+  readonly authDB = inject(AuthMockDB);
   readonly DB = {
-    'users': inject(UserDB),
-    'userContexts': inject(UserContextDB),
+    'weeklyGoalReflections': inject(WeeklyGoalReflectionMockDB),
+    'quarterlyGoalReflections': inject(QuarterlyGoalReflectionMockDB),
+    'longTermGoalReflections': inject(LongTermGoalReflectionMockDB),
+    'hashtags': inject(HashtagMockDB),
+    'longTermGoals': inject(LongTermGoalMockDB),
+    'weeklyGoals': inject(WeeklyGoalMockDB),
+    'quarterlyGoals': inject(QuarterlyGoalMockDB),
+    'users': inject(UserMockDB),
+    'userContexts': inject(UserContextMockDB),
   };
   private user$ = toObservable(this.authDB.user);
 
@@ -35,6 +49,13 @@ export class FirebaseMockService implements DatabaseService {
     private injector: Injector,
   ) {
     // Init Entity Models
+    patchState(this.DB['weeklyGoalReflections'], setAllEntities(WEEKLYGOALREFLECTION_DB,  { selectId }));
+    patchState(this.DB['quarterlyGoalReflections'], setAllEntities(QUARTERLYGOALREFLECTION_DB,  { selectId }));
+    patchState(this.DB['longTermGoalReflections'], setAllEntities(LONGTERMGOALREFLECTION_DB,  { selectId }));
+    patchState(this.DB['hashtags'], setAllEntities(HASHTAG_DB,  { selectId }));
+    patchState(this.DB['longTermGoals'], setAllEntities(LONGTERMGOAL_DB,  { selectId }));
+    patchState(this.DB['weeklyGoals'], setAllEntities(WEEKLYGOAL_DB,  { selectId }));
+    patchState(this.DB['quarterlyGoals'], setAllEntities(QUARTERLYGOAL_DB,  { selectId }));
     patchState(this.DB['users'], setAllEntities(USER_DB, { selectId }));
     patchState(this.DB['userContexts'], setAllEntities(USERCONTEXT_DB, { selectId }));
   }

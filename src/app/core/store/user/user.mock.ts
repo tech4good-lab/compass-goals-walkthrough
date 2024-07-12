@@ -3,7 +3,7 @@ import { withEntitiesForMockDB } from '../app.store';
 import { signalStore } from '@ngrx/signals';
 import { User, AccessState } from './user.model';
 
-export const UserDB = signalStore(
+export const UserMockDB = signalStore(
   { providedIn: 'root' },
   withEntitiesForMockDB<User>(),
 );

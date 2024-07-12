@@ -4,7 +4,7 @@ import { withEntitiesForMockDB } from '../app.store';
 import { signalStore } from '@ngrx/signals';
 import { USER_DB } from '../user/user.mock';
 
-export const UserContextDB = signalStore(
+export const UserContextMockDB = signalStore(
   { providedIn: 'root' },
   withEntitiesForMockDB<UserContext>(),
 );

@@ -1,7 +1,7 @@
 import { signalStore, patchState, withState, withMethods, signalStoreFeature } from '@ngrx/signals';
 import { USER_DB } from '../user/user.mock';
 
-export const AuthDB = signalStore(
+export const AuthMockDB = signalStore(
   { providedIn: 'root' },
   withState({ user: null }),
   withMethods((store) => ({
