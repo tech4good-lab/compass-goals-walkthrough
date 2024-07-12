@@ -1,7 +1,29 @@
-:host {
-  display: block;
-  .weekly-goals-header-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+.weekly-goals-header-container {
+  // for now, we now we'll keep a border and background until we revisit the weekly goals container
+  border: 1px solid black;
+  background-color: white;
+
+  padding: 24px 10px 0px;
+  color: #4B5853;
+
+  .weekly-goals {
+    margin: 0;
+    font-weight: 400;
+    font-size: 28px;
+  }
+
+  .edit-weekly-goals {
+    background: none;
+    border: none;
+    .edit-icon {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+  .goal-time {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 21px;
   }
 }

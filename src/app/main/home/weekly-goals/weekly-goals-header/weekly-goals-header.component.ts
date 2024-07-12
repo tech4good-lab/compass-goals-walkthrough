@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { WeeklyGoalsHeaderAnimations } from './weekly-goals-header.animations';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-weekly-goals-header',
@@ -9,6 +10,7 @@ import { WeeklyGoalsHeaderAnimations } from './weekly-goals-header.animations';
   animations: WeeklyGoalsHeaderAnimations,
   standalone: true,
   imports: [
+    NgOptimizedImage,
   ],
 })
 export class WeeklyGoalsHeaderComponent implements OnInit {
