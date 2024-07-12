@@ -1,0 +1,9 @@
+@if (showRedeploymentWarning) {
+  <div class="warning-container">
+    <div class="header">
+      <div class="title">This version is out of date!</div>
+      <img (click)="close()" src="/assets/img/close-x.svg" />
+    </div>
+    <button (click)="update()" class="update">Update Now</button>
+  </div>
+}
