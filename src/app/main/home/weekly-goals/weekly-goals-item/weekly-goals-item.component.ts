@@ -43,13 +43,18 @@ export class WeeklyGoalsItemComponent implements OnInit {
 
   // ... which we'll then pass as the input to this component!
   goal = input<WeeklyGoalData>(this.sampleData);
-  checked = output<WeeklyGoal>();
+  checked = output<WeeklyGoalData>();
 
   // --------------- LOCAL UI STATE ----------------------
 
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
+
+  /** Update weekly goal. */
+  checkGoal() {
+    this.checked.emit(this.goal());
+  }
 
   // --------------- OTHER -------------------------------
 

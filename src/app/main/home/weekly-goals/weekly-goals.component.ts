@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { WeeklyGoalsAnimations } from './weekly-goals.animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { WeeklyGoalData } from '../home.model';
 import { WeeklyGoalsHeaderComponent } from './weekly-goals-header/weekly-goals-header.component';
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
 import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-modal.component';
+import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -27,9 +29,23 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- EVENT HANDLING ----------------------
 
+  /** Update weekly goal. */
+  async checkGoal(goal: WeeklyGoalData) {
+    this.snackBar.open(
+      `Clicked on goal "${goal.text}"`,
+      '',
+      {
+        duration: 3000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      },
+    );
+  }
+
   // --------------- OTHER -------------------------------
 
   constructor(
+    private snackBar: MatSnackBar,
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
