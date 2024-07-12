@@ -5,7 +5,6 @@ import { Observable, Subject, BehaviorSubject, combineLatest } from 'rxjs';
 import { withLatestFrom, filter, take, takeUntil } from 'rxjs/operators';
 import { User } from '../../core/store/user/user.model';
 import { AuthStore } from '../../core/store/auth/auth.store';
-import { createId } from '../../core/utils/rand.utils';
 
 @Component({
   selector: 'app-landing',
