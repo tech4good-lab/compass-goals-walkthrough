@@ -6,14 +6,17 @@ $divider-color: rgba(0, 0, 0, 0.15);
   border: 1px solid black;
   background-color: white;
 
+  display: flex;
   width: 100%;
   margin: 0;
-  padding: 4px 0px;
+  padding: 4px 10px 4px 0px;
   border-bottom: 1px solid $divider-color;
   &:hover {
     background: $goal-hover-background;
   }
   .goal-details {
+    cursor: pointer;
+    flex: 1;
     width: 100%;
     .goal-title {
       margin: 0;
@@ -21,6 +24,7 @@ $divider-color: rgba(0, 0, 0, 0.15);
       padding: 10px 0px 4px 0px;
     }
     .bottom-row {
+      display: flex;
       .goal-hashtag {
         font-size: 13px;
         font-weight: 400;
