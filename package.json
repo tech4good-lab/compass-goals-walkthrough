@@ -42,7 +42,7 @@
     "@angular-eslint/template-parser": "^18.1.0",
     "@angular/cli": "^18.0.7",
     "@angular/compiler-cli": "^18.0.0",
-    "@tech4good/angular-schematics": "^17.0.0",
+    "@tech4good/angular-schematics": "^18.0.0",
     "@types/estree": "^1.0.0",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
