@@ -1,3 +1,9 @@
 <div class="weekly-goals-header-container">
-  weekly-goals-header works!
+  <div class="goal-titles">
+    <div class="weekly-goals">Weekly Goals</div>
+    <button class="edit-weekly-goals" aria-label="Edit goals" (click)="editGoals()">
+      <img class="edit-icon" ngSrc="../../../../assets/images/edit.svg" alt="Edit" height="16" width="16"/>
+    </button>
+  </div>
+  <div class="goal-time">{{ startOfWeek() + ' - ' + endOfWeek() }}</div>
 </div>
