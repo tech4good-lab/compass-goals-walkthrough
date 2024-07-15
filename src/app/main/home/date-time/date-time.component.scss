@@ -1,19 +1,32 @@
 .date-time-container {
-  color: #2DBDB1;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 
-time { 
-  font-size: 56px;
-  vertical-align: bottom;
-  height: auto;
-}
+  .time-view {
+    display: flex;
+    color: #2DBDB1;
+    time { 
+      font-size: 56px;
+      height: 56px;
+    }
+    .time-small-section {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+      align-items: flex-end;
+      justify-content: flex-end;
+      height: 56px;
+      width: 32px;
+      .seconds {
+        letter-spacing: 2px;
+      }
+    }
+  }
+  .date {
+    font-size: 18px;
+    color: #4B5853;
+    margin-top: 8px;
+  }
 
-.seconds {
-  letter-spacing: 2px;
-}
-
-.date {
-  font-size: 18px;
-  color: #4B5853;
-  margin-top: 8px;
 }
