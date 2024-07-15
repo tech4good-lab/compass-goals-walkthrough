@@ -1,5 +1,6 @@
 import { inject, effect, Component, OnInit, ChangeDetectionStrategy, Signal } from '@angular/core';
 import { HomeAnimations } from './home.animations';
+import { GreetingComponent } from "./greeting/greeting.component";
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,9 @@ import { HomeAnimations } from './home.animations';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   animations: HomeAnimations,
+  imports: [
+    GreetingComponent
+  ],
 })
 export class HomeComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
