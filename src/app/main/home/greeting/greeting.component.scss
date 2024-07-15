@@ -1,7 +1,14 @@
-:host {
-  display: block;
-  .greeting-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
-  }
+.greeting-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: #E1FBF9;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.greeting {
+  font-size: 36px;
+  line-height: 40px;
+  color: #2DBDB1;
 }
