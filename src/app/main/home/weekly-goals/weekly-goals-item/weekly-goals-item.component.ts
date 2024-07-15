@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit, input, output } from '@angular/core';
-import { WeeklyGoalsItemAnimations } from './weekly-goals-item.animations';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { Timestamp } from '@angular/fire/firestore';
-import { WeeklyGoal } from 'src/app/core/store/weekly-goal/weekly-goal.model';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { WeeklyGoalData } from '../../home.model';
+import { WeeklyGoalsItemAnimations } from './weekly-goals-item.animations';
 
 @Component({
   selector: 'app-weekly-goals-item',
