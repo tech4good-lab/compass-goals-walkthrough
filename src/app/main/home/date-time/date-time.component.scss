@@ -1,7 +1,19 @@
-:host {
-  display: block;
-  .date-time-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
-  }
+.date-time-container {
+  color: #2DBDB1;
+}
+
+time { 
+  font-size: 56px;
+  vertical-align: bottom;
+  height: auto;
+}
+
+.seconds {
+  letter-spacing: 2px;
+}
+
+.date {
+  font-size: 18px;
+  color: #4B5853;
+  margin-top: 8px;
 }
