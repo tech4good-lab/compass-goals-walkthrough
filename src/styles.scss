@@ -17,9 +17,7 @@ html, body, app-root {
   --mdc-checkbox-selected-pressed-state-layer-color: $primary-color;
 }
 
-*,
-*:before,
-*:after {
+*, *:before, *:after {
   box-sizing: inherit;
 }
 
