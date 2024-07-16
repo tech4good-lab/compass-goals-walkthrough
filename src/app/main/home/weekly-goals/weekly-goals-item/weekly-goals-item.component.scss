@@ -2,7 +2,6 @@ $goal-hover-background: rgba(204, 239, 236, 0.25);
 $divider-color: rgba(0, 0, 0, 0.15);
 
 .weekly-goals-item-container {
-  // we'll leave this border and background for now until we get further into the tutorial
   border: 1px solid black;
   background-color: white;
 
@@ -10,10 +9,6 @@ $divider-color: rgba(0, 0, 0, 0.15);
   margin: 0;
   padding: 4px 0px;
   border-bottom: 1px solid $divider-color;
-}
-
-.goal-details {
-  width: 100%;
 }
 
 .goal-title {
