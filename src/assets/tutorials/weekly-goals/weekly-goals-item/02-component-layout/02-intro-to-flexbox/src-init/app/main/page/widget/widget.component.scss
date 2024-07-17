@@ -1,0 +1,29 @@
+.block-container {
+  display: flex;
+  flex-direction: row;
+  
+  .col {
+    display: flex;
+    flex-direction: column;
+    margin: 2px;
+    
+    /* The below styles define the individual block elements */
+    .block {
+      display: flex;
+      margin: 5px;
+      background: lightgray;
+      justify-content: space-around;
+      align-items: center;
+      font-weight: bold;
+      
+      &.one {
+        width: 120px;
+        height: 40px;
+      }
+      &.two {
+        width: 40px;
+        height: 65px;
+      }
+    }
+  }
+}

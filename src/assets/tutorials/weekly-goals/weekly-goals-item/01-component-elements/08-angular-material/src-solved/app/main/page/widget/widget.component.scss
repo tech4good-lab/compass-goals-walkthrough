@@ -1,0 +1,29 @@
+@import url(//fonts.googleapis.com/css?family=Montserrat);
+
+* {
+  font-family: Montserrat;
+}
+
+.title {
+  color: #2dbdb1;
+  font-weight: 600;
+  font-size: 22px;
+}
+.date {
+  color: #2dbdb1;
+  font-weight: 300;
+  font-size: 18px;
+}
+.number {
+  color: #2dbdb1;
+  font-weight: 500;
+  font-size: 36px;
+}
+.text {
+  color: #5a5a5a;
+  font-weight: 500;
+  font-size: 16px;
+}
+.edit {
+  cursor: pointer;
+}

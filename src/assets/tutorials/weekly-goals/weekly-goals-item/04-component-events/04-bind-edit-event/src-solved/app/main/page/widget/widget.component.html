@@ -1,0 +1,16 @@
+<div class="widget" *ngIf="quarterData">
+  <div class="header">
+    <div class="title">{{ getTerm() }} '{{ quarterData.startTime | date:'yy' }} Goals</div> 
+    <div class="date">{{ quarterData.startTime | date:'M' }}/{{ quarterData.startTime | date:'d' }} - {{ quarterData.endTime | date:'M' }}/{{ quarterData.endTime | date:'d' }}</div>
+  </div>
+  <div class="tasks">
+    <div class="task" *ngFor="let goal of quarterData.quarterGoals; trackBy: trackByFn">
+      <div class="number">{{ goal.order }}</div>
+      <div class="text">{{ goal.text }}</div>
+    </div>
+  </div>
+  <img class="edit" (click)="onEdit()" src="/assets/img/edit.svg" width="26" height="26" />
+</div>
+<div *ngIf="!quarterData">
+  <mat-spinner [diameter]="60" [strokeWidth]="2"></mat-spinner>
+</div> 
