@@ -12,8 +12,10 @@ import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-mod
   animations: WeeklyGoalsAnimations,
   standalone: true,
   imports: [
-    // Components
+    /** Component */
+    WeeklyGoalsHeaderComponent,
     WeeklyGoalsItemComponent,
+    WeeklyGoalsModalComponent,
   ],
 })
 export class WeeklyGoalsComponent implements OnInit {
