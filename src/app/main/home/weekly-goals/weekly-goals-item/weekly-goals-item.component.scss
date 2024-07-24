@@ -3,10 +3,13 @@ $divider-color: rgba(0, 0, 0, 0.15);
 .weekly-goals-item-container {
   background-color: white;
   border-bottom: 1px solid $divider-color;
+  display: flex;
+  width: 100%;
   .checkbox {
     cursor: pointer;
   }
   .goal-details {
+    flex: 1;
     .goal-title {
       font-size: 16px;
       color: #5a5a5a;
