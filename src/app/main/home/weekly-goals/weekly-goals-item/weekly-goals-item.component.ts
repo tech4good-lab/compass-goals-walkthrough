@@ -16,6 +16,9 @@ import { MatCheckbox } from '@angular/material/checkbox';
 export class WeeklyGoalsItemComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
 
+  text: string = 'Finish Google Cover Letter';
+  hashtag: string = 'apply-internships';
+
   // --------------- LOCAL UI STATE ----------------------
 
   // --------------- COMPUTED DATA -----------------------
