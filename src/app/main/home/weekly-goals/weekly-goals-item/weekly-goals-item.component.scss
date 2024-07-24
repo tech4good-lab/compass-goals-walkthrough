@@ -1,4 +1,8 @@
+$divider-color: rgba(0, 0, 0, 0.15);
+
 .weekly-goals-item-container {
+  background-color: white;
+  border-bottom: 1px solid $divider-color;
   .checkbox {
     cursor: pointer;
   }
