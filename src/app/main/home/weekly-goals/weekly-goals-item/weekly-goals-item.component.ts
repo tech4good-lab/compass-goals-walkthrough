@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, input, output } from '@angular/core';
 import { WeeklyGoalsItemAnimations } from './weekly-goals-item.animations';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { WeeklyGoalData } from '../../home.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-weekly-goals-item',
@@ -22,6 +21,8 @@ export class WeeklyGoalsItemComponent implements OnInit {
 
   goal = input<WeeklyGoalData>();
 
+  checked = output<WeeklyGoalData>();
+
   // --------------- LOCAL UI STATE ----------------------
 
   // --------------- COMPUTED DATA -----------------------
@@ -29,21 +30,12 @@ export class WeeklyGoalsItemComponent implements OnInit {
   // --------------- EVENT HANDLING ----------------------
 
   checkGoal() {
-    this.snackBar.open(
-      `Clicked on goal "${this.goal().text}"`,
-      '',
-      {
-        duration: 3000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      },
-    );
+    this.checked.emit(this.goal());
   }
 
   // --------------- OTHER -------------------------------
 
   constructor(
-    private snackBar: MatSnackBar,
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
