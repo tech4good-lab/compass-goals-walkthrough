@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, input } from '@angular/core';
 import { WeeklyGoalsItemAnimations } from './weekly-goals-item.animations';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { WeeklyGoalData } from '../../home.model';
 
 @Component({
@@ -12,6 +13,7 @@ import { WeeklyGoalData } from '../../home.model';
   standalone: true,
   imports: [
     MatCheckbox,
+    MatProgressSpinner,
   ],
 })
 export class WeeklyGoalsItemComponent implements OnInit {

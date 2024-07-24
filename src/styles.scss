@@ -36,3 +36,7 @@ body {
   --mdc-checkbox-selected-hover-state-layer-color: #{$primary-color};
   --mdc-checkbox-unselected-pressed-state-layer-color: #{$primary-color};
 }
+
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: $primary-color;
+}
