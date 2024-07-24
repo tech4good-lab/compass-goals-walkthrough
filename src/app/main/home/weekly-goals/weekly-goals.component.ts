@@ -5,6 +5,7 @@ import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.
 import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-modal.component';
 import { Timestamp } from '@angular/fire/firestore';
 import { WeeklyGoalData } from '../home.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -48,9 +49,22 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- EVENT HANDLING ----------------------
 
+  checkGoal(goal: WeeklyGoalData) {
+    this.snackBar.open(
+      `Clicked on goal "${goal.text}"`,
+      '',
+      {
+        duration: 3000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      },
+    );
+  }
+
   // --------------- OTHER -------------------------------
 
   constructor(
+    private snackBar: MatSnackBar,
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
