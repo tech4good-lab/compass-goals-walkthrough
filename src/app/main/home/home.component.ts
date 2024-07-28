@@ -1,4 +1,4 @@
-import { inject, effect, Component, OnInit, ChangeDetectionStrategy, Signal } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HomeAnimations } from './home.animations';
 
 @Component({

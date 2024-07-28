@@ -1,7 +1,5 @@
-import { inject, Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, Signal } from '@angular/core';
-import { User } from '../../core/store/user/user.model';
-import { AuthStore } from '../../core/store/auth/auth.store';
-import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { NavbarAnimations } from './navbar.animation';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +7,7 @@ import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
   styleUrls: ['./navbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatMenuTrigger, MatMenu],
+  animations: NavbarAnimations,
 })
 export class NavbarComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
