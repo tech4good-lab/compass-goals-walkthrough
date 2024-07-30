@@ -10,8 +10,7 @@
       "enabled": true,
       "path": ".cache",
       "environment": "all"
-    },
-    "analytics": false
+    }
   },
   "projects": {
     "compass-goals-walkthrough": {
