@@ -6,8 +6,7 @@ import { environment } from '../../../environments/environment';
 import { DocumentSnapshot, serverTimestamp, Timestamp, getDoc, getDocs, doc, setDoc, updateDoc, deleteDoc, docData, collection, collectionData, collectionChanges, query, where, orderBy, OrderByDirection, limit, startAt, startAfter, endAt, endBefore, DocumentChange, increment, AggregateQuerySnapshot, AggregateField, AggregateSpec, getAggregateFromServer, getCountFromServer } from '@angular/fire/firestore';
 import { AnyEntity, QueryParams, QueryOptions } from '../store/app.model';
 import { DatabaseService } from './database.service';
-import { SelectEntityId, setAllEntities } from '@ngrx/signals/entities';
-import { patchState } from '@ngrx/signals';
+import { SelectEntityId } from '@ngrx/signals/entities';
 import { AuthMockDB } from '../store/auth/auth.mock';
 
 // Entity Model DB Data
@@ -49,15 +48,15 @@ export class FirebaseMockService implements DatabaseService {
     private injector: Injector,
   ) {
     // Init Entity Models
-    patchState(this.DB['weeklyGoalReflections'], setAllEntities(WEEKLYGOALREFLECTION_DB, { selectId }));
-    patchState(this.DB['quarterlyGoalReflections'], setAllEntities(QUARTERLYGOALREFLECTION_DB, { selectId }));
-    patchState(this.DB['longTermGoalReflections'], setAllEntities(LONGTERMGOALREFLECTION_DB, { selectId }));
-    patchState(this.DB['hashtags'], setAllEntities(HASHTAG_DB, { selectId }));
-    patchState(this.DB['longTermGoals'], setAllEntities(LONGTERMGOAL_DB, { selectId }));
-    patchState(this.DB['weeklyGoals'], setAllEntities(WEEKLYGOAL_DB, { selectId }));
-    patchState(this.DB['quarterlyGoals'], setAllEntities(QUARTERLYGOAL_DB, { selectId }));
-    patchState(this.DB['users'], setAllEntities(USER_DB, { selectId }));
-    patchState(this.DB['userContexts'], setAllEntities(USERCONTEXT_DB, { selectId }));
+    this.DB['weeklyGoalReflections'].init(WEEKLYGOALREFLECTION_DB);
+    this.DB['quarterlyGoalReflections'].init(QUARTERLYGOALREFLECTION_DB);
+    this.DB['longTermGoalReflections'].init(LONGTERMGOALREFLECTION_DB);
+    this.DB['users'].init(USER_DB);
+    this.DB['userContexts'].init(USERCONTEXT_DB);
+    this.DB['quarterlyGoals'].init(QUARTERLYGOAL_DB);
+    this.DB['weeklyGoals'].init(WEEKLYGOAL_DB);
+    this.DB['hashtags'].init(HASHTAG_DB);
+    this.DB['longTermGoals'].init(LONGTERMGOAL_DB);
   }
 
   /** Creates a unique id */

@@ -1,7 +1,7 @@
 import { WritableSignal, inject } from '@angular/core';
 import { Timestamp, writeBatch } from '@angular/fire/firestore';
 import { patchState, signalStoreFeature, withMethods } from '@ngrx/signals';
-import { removeEntities, removeEntity, setEntities, setEntity, updateEntity, withEntities } from '@ngrx/signals/entities';
+import { removeEntities, removeEntity, setEntities, setEntity, updateEntity, withEntities, setAllEntities } from '@ngrx/signals/entities';
 import { EntityChanges, EntityId, SelectEntityId } from '@ngrx/signals/entities/src/models';
 import { CachedListenersService } from '../firebase/cached-listeners.service';
 import { DATABASE_SERVICE, DatabaseService } from '../firebase/database.service';
@@ -58,6 +58,9 @@ export function withEntitiesAndSelectMethods<S extends AnyEntity>() {
   return signalStoreFeature(
     withEntities<S>(),
     withMethods((store) => ({
+      init(entities: S[]) {
+        patchState(store, setAllEntities<S>(entities, { selectId }));
+      },
       selectEntity(id: string): S {
         const result = store.entityMap()[id];
 
