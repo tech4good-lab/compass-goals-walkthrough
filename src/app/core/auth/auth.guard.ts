@@ -35,15 +35,27 @@ export class AuthGuard {
         //   typically get rerouted from)
 
         // First handle whether users are logged in. If not, go to landing, otherwise go to the hompage
-        if (!dbUser && (state.url !== '/' && state.url !== '/landing')) {
-          this.router.navigate(['/'], { queryParams: next.queryParams });
-          return of(false);
-        } else if (!dbUser && (state.url === '/' || state.url === '/landing')) {
-          return of(true);
-        } else if (dbUser && (state.url === '/' || state.url === '/landing')) {
+        if (!dbUser) {
+          if (state.url !== '/' && state.url !== '/landing') {
+            this.router.navigate(['/'], { queryParams: next.queryParams });
+            return of(false);
+          } else {
+            return of(true);
+          }
+        }
+
+        // After this point user must be logged in
+        if (state.url === '/' || state.url === '/landing') {
           this.router.navigate(['/home'], { queryParams: next.queryParams });
           return of(false);
         }
+
+        // After this point user must be logged in
+        if ((state.url === '/' || state.url === '/landing')) {
+          this.router.navigate(['/home'], { queryParams: next.queryParams });
+          return of(false);
+        }
+
 
         // Make sure non-admin users can't visit admin pages and admin users can visit any page
         // Note: this also means there isn't the same auto-redirection/authguard behavior for admins
