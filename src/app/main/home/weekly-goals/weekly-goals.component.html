@@ -1,7 +1,15 @@
 <div class="weekly-goals-container">
-  <app-weekly-goals-header (editClicked)="updateGoals($event)"/>
-  @for (goal of weeklyGoals(); track goal.__id) {
-    <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
-  }
-  <div>{{ currentUser() | json }}</div>
+  <div><b>Store (Weekly Goals):</b></div>
+  <div *ngFor="let qg of weeklyGoalStore.entities() | keyvalue">
+    {{ qg.key }}: {{ qg.value | json }}
+  </div>
+  <br />
+  <div><b>Store (Quarter Goals):</b></div>
+  <div *ngFor="let wg of quarterlyGoalStore.entities() | keyvalue">
+    {{ wg.key }}: {{ wg.value | json }}
+  </div>
+  <div><b>Store (Hashtag):</b></div>
+  <div *ngFor="let hg of hashtagStore.entities() | keyvalue">
+    {{ hg.key }}: {{ hg.value | json }}
+  </div>
 </div>

@@ -11,6 +11,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { AccessState, User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { CommonModule } from '@angular/common';
+import { HashtagStore, LoadHashtag } from 'src/app/core/store/hashtag/hashtag.store';
+import { WeeklyGoalStore } from 'src/app/core/store/weekly-goal/weekly-goal.store';
+import { LoadQuarterlyGoal, QuarterlyGoalStore } from 'src/app/core/store/quarterly-goal/quarterly-goal.store';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -29,6 +32,9 @@ import { CommonModule } from '@angular/common';
 })
 export class WeeklyGoalsComponent implements OnInit {
   readonly authStore = inject(AuthStore);
+  readonly hashtagStore = inject(HashtagStore);
+  readonly weeklyGoalStore = inject(WeeklyGoalStore);
+  readonly quarterlyGoalStore = inject(QuarterlyGoalStore);
   // --------------- INPUTS AND OUTPUTS ------------------
 
   /** The current signed in user. */
@@ -140,5 +146,8 @@ export class WeeklyGoalsComponent implements OnInit {
   // --------------- LOAD AND CLEANUP --------------------
 
   ngOnInit(): void {
+    this.weeklyGoalStore.load([], {});
+    this.quarterlyGoalStore.load([], {});
+    this.hashtagStore.load([], {});
   }
 }
