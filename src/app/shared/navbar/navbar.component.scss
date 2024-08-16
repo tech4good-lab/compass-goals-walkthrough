@@ -1,7 +1,10 @@
-.logo {
-  cursor: pointer;
-}
-
-.logout {
-  cursor: pointer;
+.navbar-container {
+  .logo {
+    cursor: pointer;
+  }
+  .user-setting-section {
+    .logout {
+      cursor: pointer;
+    }
+  }
 }
