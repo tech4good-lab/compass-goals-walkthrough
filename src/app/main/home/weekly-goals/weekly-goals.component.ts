@@ -28,7 +28,7 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- LOCAL UI STATE ----------------------
 
-  sampleData: WeeklyGoalData = {
+  sampleData: Signal<WeeklyGoalData> = toSignal(of({
     __id: 'wg1',
     __userId: 'test-user',
     __quarterlyGoalId: 'qg1',
@@ -47,7 +47,7 @@ export class WeeklyGoalsComponent implements OnInit {
       _updatedAt: Timestamp.now(),
       _deleted: false,
     },
-  };
+  }));
 
   // --------------- COMPUTED DATA -----------------------
 
