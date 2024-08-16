@@ -9,11 +9,11 @@
     <time class="date-range"><b>{{ startOfWeek() + ' - ' + endOfWeek() }}</b></time>
   </header>
   <form [formGroup]="weeklyGoalsForm">
-    <section class="goal-list">
+    <section class="goal-list" cdkDropList (cdkDropListDropped)="drop($event)">
       <div class="goal-container" formArrayName="allGoals">
-        <div *ngFor="let goal of allGoals.controls; let i=index" class="goal-item">     
+        <div *ngFor="let goal of allGoals.controls; let i=index" class="goal-item" cdkDrag cdkDrag cdkDragPreviewContainer="parent">
           <div class="goals-box" [formGroupName]="i">
-            <mat-icon>drag_indicator</mat-icon>
+            <mat-icon cdkDragHandle>drag_indicator</mat-icon>
             <!-- field set is used to disable these fields when a goal is set to be deleted -->
             <fieldset class="field-wrapper" [disabled]="this.allGoals.at(i).value._deleted">
               <mat-form-field class="goal-input">

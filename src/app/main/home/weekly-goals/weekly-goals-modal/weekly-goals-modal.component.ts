@@ -101,6 +101,32 @@ export class WeeklyGoalsModalComponent implements OnInit {
     }
   }
 
+  /** Support drag and drop of goals. */
+  drop(event: CdkDragDrop<WeeklyGoal[]>) {
+    moveItemInArray(this.allGoals.controls, event.previousIndex, event.currentIndex);
+  }
+
+  /**
+   * Moves an item in a FormArray to another position.
+   * @param formArray FormArray instance in which to move the item.
+   * @param fromIndex Starting index of the item.
+   * @param toIndex Index to which he item should be moved.
+   * https://stackoverflow.com/questions/56149461/draggable-formgroups-in-formarray-reactive-forms
+  */
+  moveItemInFormArray(formArray: FormArray, fromIndex: number, toIndex: number) {
+    const dir = toIndex > fromIndex ? 1 : -1;
+
+    const from = fromIndex;
+    const to = toIndex;
+
+    const temp = formArray.at(from);
+    for (let i = from; i * dir < to * dir; i = i + dir) {
+      const current = formArray.at(i + dir);
+      formArray.setControl(i, current);
+    }
+    formArray.setControl(to, temp);
+  }
+
   // --------------- OTHER -------------------------------
 
   constructor(
