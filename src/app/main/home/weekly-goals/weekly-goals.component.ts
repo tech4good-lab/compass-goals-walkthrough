@@ -4,7 +4,7 @@ import { WeeklyGoalsHeaderComponent } from './weekly-goals-header/weekly-goals-h
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
 import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-modal.component';
 import { Timestamp } from '@angular/fire/firestore';
-import { WeeklyGoalData } from '../home.model';
+import { QuarterlyGoalData, WeeklyGoalData } from '../home.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -86,6 +86,20 @@ export class WeeklyGoalsComponent implements OnInit {
     });
   });
 
+  /** All quarterly goals, needed for weekly goals modal */
+  allQuarterlyGoals: Signal<Partial<QuarterlyGoalData>[]> = computed(() => {
+    const allGoals = this.quarterlyGoalStore.selectEntities([
+      ['__userId', '==', this.currentUser().__id],
+    ], { orderBy: 'order' });
+
+    return allGoals.map((goal) => {
+      return Object.assign({}, goal, {
+        hashtag: this.hashtagStore.selectEntity(goal.__hashtagId),
+      });
+    });
+  });
+
+
   // --------------- EVENT HANDLING ----------------------
 
   /** Check weekly goal. */
@@ -107,6 +121,10 @@ export class WeeklyGoalsComponent implements OnInit {
       height: '90%',
       position: { bottom: '0' },
       panelClass: 'goal-modal-panel',
+      data: {
+        goalDatas: this.allQuarterlyGoals(),
+        incompleteGoals: this.incompleteWeeklyGoals(),
+      },
     });
   }
 

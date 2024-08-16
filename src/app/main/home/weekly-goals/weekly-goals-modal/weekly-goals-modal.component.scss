@@ -1,7 +1,12 @@
-:host {
-  display: block;
-  .weekly-goals-modal-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+.weekly-goals-modal-container {
+  .top-row {
+    display: flex;
+    align-items: center;
+  
+    .close-button {
+      margin-left: auto;
+      margin-right: 16px;
+      transform: scale(1.4);
+    }
   }
 }

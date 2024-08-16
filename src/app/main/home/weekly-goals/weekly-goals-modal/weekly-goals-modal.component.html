@@ -1,3 +1,16 @@
 <div class="weekly-goals-modal-container">
-  weekly-goals-modal works!
+  <div class="top-row">
+    <h2>Weekly Goals</h2>
+    <button mat-icon-button class="close-button" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <h2>Quarterly Goals</h2>
+  @for (goal of this.data.goalDatas; track goal.__id) {
+    <div>{{goal.text}}</div>
+  }
+  <h2>Incomplete Weekly Goals</h2>
+  @for (goal of this.data.incompleteGoals; track goal.__id) {
+    <div>{{goal.text}}</div>
+  }
 </div>
