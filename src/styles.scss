@@ -8,6 +8,8 @@ $primary-color: #2DBDB1;
 
 html {
   @include mat.checkbox-theme(m3-theme.$light-theme);
+  @include mat.form-field-theme(m3-theme.$light-theme);
+  @include mat.select-theme(m3-theme.$light-theme);
 }
 
 html, body, app-root {
@@ -31,6 +33,12 @@ body {
   we need to override the border color to get the outlined look always. */
 .mat-mdc-checkbox .mdc-form-field .mdc-checkbox .mdc-checkbox__background {
   border-color: $primary-color !important;
+  background-color: transparent !important;
+}
+
+/** To properly align text fields on modals */
+.mat-mdc-form-field-subscript-wrapper {
+  display: none;
 }
 
 .goal-modal-panel {

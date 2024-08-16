@@ -1,12 +1,108 @@
 .weekly-goals-modal-container {
-  .top-row {
+  .header {
     display: flex;
-    align-items: center;
-  
-    .close-button {
-      margin-left: auto;
-      margin-right: 16px;
-      transform: scale(1.4);
+    flex-direction: column;
+    margin-bottom: 32px;
+    padding: 20px 0 0 28px;
+    color: #4B5853;
+
+    .top-row {
+      display: flex;
+      align-items: center;
+
+      h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 400;
+      }
+
+      .close-button {
+        margin-left: auto;
+        margin-right: 16px;
+        transform: scale(1.4);
+      }
+    }
+
+    .date-range {
+      margin-top: 8px;
+      font-weight: bold;
+      font-size: 22px;
+    }
+  }
+  .goal-list {
+    margin-bottom: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 0 20px;
+
+    -webkit-scrollbar {
+      width: 0;
+    }
+
+    .goal-container {
+      display: flex;
+      flex-direction: column;
+
+      .goal-item {
+        margin-bottom: 4px;
+
+        .goals-box {
+          display: flex;
+          align-items: center;
+
+          mat-icon {
+            margin-right: 8px;
+            height: 30px;
+            font-size: 30px;
+            color: #2dbdb1;
+            margin-bottom: 4px;
+          }
+
+          input,
+          label {
+            cursor: pointer !important;
+          }
+
+          input[type=checkbox]:checked + label .delete,
+          input[type=checkbox] + label .restore {
+            display: none;
+          }
+
+          input[type=checkbox]:checked + label .restore,
+          input[type=checkbox] + label .delete {
+            display: flex;
+          }
+
+          input[type=checkbox] {
+            display: none;
+            margin-left: 8px;
+          }
+
+          fieldset {
+            border: none;
+            border-radius: 8px;
+            flex: 1;
+            display: flex;
+            flex-shrink: inherit;
+          }
+
+          fieldset:disabled {
+            background-color: rgba(255, 0, 0, 0.12);
+          }
+
+          .goal-input {
+            flex: 1;
+            margin-right: 8px;
+
+            mat-form-field {
+              width: 100%;
+              margin: 0;
+              background: #fff;
+              border-radius: 4px;
+            }
+          }
+        }
+      }
     }
   }
 }

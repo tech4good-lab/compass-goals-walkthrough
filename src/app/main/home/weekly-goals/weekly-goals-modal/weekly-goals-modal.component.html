@@ -1,16 +1,41 @@
 <div class="weekly-goals-modal-container">
-  <div class="top-row">
-    <h2>Weekly Goals</h2>
-    <button mat-icon-button class="close-button" mat-dialog-close>
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-  <h2>Quarterly Goals</h2>
-  @for (goal of this.data.goalDatas; track goal.__id) {
-    <div>{{goal.text}}</div>
-  }
-  <h2>Incomplete Weekly Goals</h2>
-  @for (goal of this.data.incompleteGoals; track goal.__id) {
-    <div>{{goal.text}}</div>
-  }
+  <header class="header">
+    <div class="top-row">
+      <h1>Weekly Goals</h1>
+      <button mat-icon-button class="close-button" mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <time class="date-range"><b>{{ startOfWeek() + ' - ' + endOfWeek() }}</b></time>
+  </header>
+  <form [formGroup]="weeklyGoalsForm">
+    <section class="goal-list">
+      <div class="goal-container" formArrayName="allGoals">
+        <div *ngFor="let goal of allGoals.controls; let i=index" class="goal-item">     
+          <div class="goals-box" [formGroupName]="i">
+            <mat-icon>drag_indicator</mat-icon>
+            <!-- field set is used to disable these fields when a goal is set to be deleted -->
+            <fieldset class="field-wrapper" [disabled]="this.allGoals.at(i).value._deleted">
+              <mat-form-field class="goal-input">
+                <input matInput placeholder="Enter your goal..." formControlName="text" />
+              </mat-form-field>
+              <mat-form-field  class="goal-dropdown">
+                <mat-select placeholder="Select a hashtag" name="weekGoalHashtag" formControlName="__quarterlyGoalId">
+                  @for (entity of data.goalDatas; track entity.__id) {
+                    <mat-option [value]="entity.__id" [style.color]="entity.hashtag?.color">#{{entity.hashtag?.name}}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </fieldset>
+            <input id="trash-{{ i }}" type="checkbox" [checked]="weeklyGoalsForm.get(['allGoals', i, '_deleted'])" formControlName="_deleted">
+            <label for="trash-{{ i }}" class="trash-label">
+              <mat-icon class="delete" aria-hidden="false" aria-label="trash icon" fontIcon="delete"></mat-icon>
+              <mat-icon class="restore" aria-hidden="false" aria-label="trash icon" fontIcon="restore_from_trash"></mat-icon>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+  </form>
+  
 </div>
