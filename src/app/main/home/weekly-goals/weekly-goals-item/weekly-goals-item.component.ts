@@ -3,6 +3,7 @@ import { WeeklyGoalsItemAnimations } from './weekly-goals-item.animations';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { WeeklyGoalData } from '../../home.model';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-weekly-goals-item',
@@ -14,6 +15,7 @@ import { WeeklyGoalData } from '../../home.model';
   imports: [
     MatCheckbox,
     MatProgressSpinner,
+    NgStyle,
   ],
 })
 export class WeeklyGoalsItemComponent implements OnInit {

@@ -2,8 +2,8 @@
 <div class="weekly-goals-item-container">
    <mat-checkbox class="check-box" (click)="checkGoal()"></mat-checkbox>
    <div class="goal-details">
-      <div class="goal-title">{{ goal().text }}</div>
-      <div class="goal-hashtag">#{{ goal().hashtag.name }}</div>
+      <div class="goal-title" [ngStyle]="{'text-decoration': goal().completed ? 'line-through' : 'none'}">{{ goal().text }}</div>
+      <div class="goal-hashtag">#{{ goal().hashtag?.name }}</div>
    </div>
 </div>
 } @else {

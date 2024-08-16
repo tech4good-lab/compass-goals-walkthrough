@@ -43,72 +43,43 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- LOCAL UI STATE ----------------------
 
-  weeklyGoals: Signal<WeeklyGoalData[]> = computed(() => {
-    return [
-      {
-        __id: 'wg1',
-        __userId: 'test-user',
-        __quarterlyGoalId: 'qg1',
-        __hashtagId: 'ht1',
-        text: 'Finish Google Cover Letter',
-        completed: false,
-        order: 1,
-        _createdAt: Timestamp.now(),
-        _updatedAt: Timestamp.now(),
-        _deleted: false,
-        hashtag: {
-          __id: 'ht1',
-          name: 'apply-internships',
-          color: '#EE8B72',
-          _createdAt: Timestamp.now(),
-          _updatedAt: Timestamp.now(),
-          _deleted: false,
-        },
-      },
-      {
-        __id: 'wg2',
-        __userId: 'test-user',
-        __quarterlyGoalId: 'qg2',
-        __hashtagId: 'ht2',
-        text: 'Apply to Microsoft',
-        completed: false,
-        order: 2,
-        _createdAt: Timestamp.now(),
-        _updatedAt: Timestamp.now(),
-        _deleted: false,
-        hashtag: {
-          __id: 'ht2',
-          name: 'apply',
-          color: '#2DBDB1',
-          _createdAt: Timestamp.now(),
-          _updatedAt: Timestamp.now(),
-          _deleted: false,
-        },
-      },
-      {
-        __id: 'wg3',
-        __userId: 'test-user',
-        __quarterlyGoalId: 'qg3',
-        __hashtagId: 'ht3',
-        text: 'Review data structures',
-        completed: false,
-        order: 3,
-        _createdAt: Timestamp.now(),
-        _updatedAt: Timestamp.now(),
-        _deleted: false,
-        hashtag: {
-          __id: 'ht3',
-          name: 'interview',
-          color: '#FFB987',
-          _createdAt: Timestamp.now(),
-          _updatedAt: Timestamp.now(),
-          _deleted: false,
-        }
-      },
-    ]
+  // --------------- COMPUTED DATA -----------------------
+
+  /** Data for completed weekly goals. */
+  completeWeeklyGoals: Signal<WeeklyGoalData[]> = computed(() => {
+    const startOfWeek = getStartWeekDate();
+    const completeGoals = this.weeklyGoalStore.selectEntities([
+      ['__userId', '==', this.currentUser().__id],
+      ['completed', '==', true],
+      ['endDate', '>=', Timestamp.fromDate(startOfWeek)],
+    ], { orderBy: 'order' });
+
+    return completeGoals.map((goal) => {
+      // get the quarter goal associated with that weekly goal to make updates easier
+      const quarterGoal = this.quarterlyGoalStore.selectEntity(goal.__quarterlyGoalId);
+      return Object.assign({}, goal, {
+        hashtag: this.hashtagStore.selectEntity(quarterGoal?.__hashtagId),
+        quarterGoal: quarterGoal,
+      });
+    });
   });
 
-  // --------------- COMPUTED DATA -----------------------
+  /** Data for incomplete weekly goals. */
+  incompleteWeeklyGoals: Signal<WeeklyGoalData[]> = computed(() => {
+    const incompleteGoals = this.weeklyGoalStore.selectEntities([
+      ['__userId', '==', this.currentUser().__id],
+      ['completed', '==', false],
+    ], { orderBy: 'order' });
+
+    return incompleteGoals.map((goal) => {
+      // get the quarter goal associated with that weekly goal to make updates easier
+      const quarterGoal = this.quarterlyGoalStore.selectEntity(goal.__quarterlyGoalId);
+      return Object.assign({}, goal, {
+        hashtag: this.hashtagStore.selectEntity(quarterGoal?.__hashtagId),
+        quarterGoal: quarterGoal,
+      });
+    });
+  });
 
   // --------------- EVENT HANDLING ----------------------
 
