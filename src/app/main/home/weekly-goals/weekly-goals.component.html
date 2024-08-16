@@ -1,4 +1,6 @@
 <div class="weekly-goals-container">
   <app-weekly-goals-header (editClicked)="updateGoals($event)"/>
-  <app-weekly-goals-item [goal]="this.sampleData()" (checked)="checkGoal($event)"/>
+  @for (goal of weeklyGoals(); track goal.__id) {
+    <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
+  }
 </div>
