@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { HashtagStore, LoadHashtag } from 'src/app/core/store/hashtag/hashtag.store';
 import { WeeklyGoalStore } from 'src/app/core/store/weekly-goal/weekly-goal.store';
 import { LoadQuarterlyGoal, QuarterlyGoalStore } from 'src/app/core/store/quarterly-goal/quarterly-goal.store';
+import { getStartWeekDate } from 'src/app/core/utils/time.utils';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -146,8 +147,18 @@ export class WeeklyGoalsComponent implements OnInit {
   // --------------- LOAD AND CLEANUP --------------------
 
   ngOnInit(): void {
-    this.weeklyGoalStore.load([], {});
-    this.quarterlyGoalStore.load([], {});
-    this.hashtagStore.load([], {});
+    // loading uncompleted goals
+    this.weeklyGoalStore.load([['__userId', '==', this.currentUser().__id], ['completed', '==', false]], { orderBy: "order" }, (wg) => [
+      LoadQuarterlyGoal.create(this.quarterlyGoalStore, [['__id', '==', wg.__quarterlyGoalId]], {}, (qg) => [
+        LoadHashtag.create(this.hashtagStore, [['__id', '==', qg.__hashtagId]], {}),
+      ]),
+    ]);
+
+    // loading completed goals
+    this.weeklyGoalStore.load([['__userId', '==', this.currentUser().__id], ['endDate', '>=', Timestamp.fromDate(getStartWeekDate())]], { orderBy: "order" }, (wg) => [
+      LoadQuarterlyGoal.create(this.quarterlyGoalStore, [['__id', '==', wg.__quarterlyGoalId]], {}, (qg) => [
+        LoadHashtag.create(this.hashtagStore, [['__id', '==', qg.__hashtagId]], {}),
+      ]),
+    ]);
   }
 }
