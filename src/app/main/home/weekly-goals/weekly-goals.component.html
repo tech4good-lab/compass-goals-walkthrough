@@ -1,4 +1,4 @@
 <div class="weekly-goals-container">
   <app-weekly-goals-header (editClicked)="updateGoals($event)"/>
-  <app-weekly-goals-item (checked)="checkGoal($event)"/>
+  <app-weekly-goals-item [goal]="this.sampleData" (checked)="checkGoal($event)"/>
 </div>

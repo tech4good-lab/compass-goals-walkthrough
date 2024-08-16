@@ -10,7 +10,7 @@ import { WeeklyGoalsComponent } from './weekly-goals/weekly-goals.component';
   standalone: true,
   animations: HomeAnimations,
   imports: [
-    /** Containers */
+    // Containers
     WeeklyGoalsComponent,
   ]
 })
