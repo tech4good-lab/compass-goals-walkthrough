@@ -1,8 +1,13 @@
 .navbar-container {
+  background: #FFFFFF;
+  box-shadow: -4px 0px 4px rgba(200, 224, 212, 0.25);
   .logo {
     cursor: pointer;
   }
   .user-setting-section {
+    .profile-pic {
+      border-radius: 50%;
+    }
     .logout {
       cursor: pointer;
     }
