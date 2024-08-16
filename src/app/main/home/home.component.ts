@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HomeAnimations } from './home.animations';
+import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,10 @@ import { HomeAnimations } from './home.animations';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   animations: HomeAnimations,
+  imports: [
+    // Containers
+    NavbarComponent,
+  ],
 })
 export class HomeComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
