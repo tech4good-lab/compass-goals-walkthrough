@@ -3,4 +3,5 @@
   @for (goal of weeklyGoals(); track goal.__id) {
     <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
   }
+  <div>{{ currentUser() | json }}</div>
 </div>

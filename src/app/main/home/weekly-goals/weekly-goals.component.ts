@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, Signal, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Signal, computed, inject } from '@angular/core';
 import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 import { WeeklyGoalsHeaderComponent } from './weekly-goals-header/weekly-goals-header.component';
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AccessState, User } from 'src/app/core/store/user/user.model';
+import { AuthStore } from 'src/app/core/store/auth/auth.store';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -21,28 +23,18 @@ import { AccessState, User } from 'src/app/core/store/user/user.model';
     // Components
     WeeklyGoalsItemComponent,
     WeeklyGoalsHeaderComponent,
-    WeeklyGoalsModalComponent
+    WeeklyGoalsModalComponent,
+    CommonModule,
   ],
 })
 export class WeeklyGoalsComponent implements OnInit {
+  readonly authStore = inject(AuthStore);
   // --------------- INPUTS AND OUTPUTS ------------------
 
-  // --------------- LOCAL UI STATE ----------------------
+  /** The current signed in user. */
+  currentUser: Signal<User> = this.authStore.user;
 
-  currentUser: Signal<User> = computed(() => {
-    return {
-      __id: 'test-user',
-      email: 'a@sample.com',
-      name: 'User A',
-      photoURL: 'http://loremflickr.com/100/100',
-      isAdmin: false,
-      consented: true,
-      accessState: AccessState.DONE,
-      _createdAt: Timestamp.now(),
-      _updatedAt: Timestamp.now(),
-      _deleted: false,
-    }
-  });
+  // --------------- LOCAL UI STATE ----------------------
 
   weeklyGoals: Signal<WeeklyGoalData[]> = computed(() => {
     return [
