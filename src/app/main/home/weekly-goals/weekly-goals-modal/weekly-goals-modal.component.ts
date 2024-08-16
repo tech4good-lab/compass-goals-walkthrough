@@ -45,8 +45,8 @@ export class WeeklyGoalsModalComponent implements OnInit {
 
   // --------------- LOCAL UI STATE ----------------------
 
-   /** FormControls for editing past goals and adding a new one */
-   weeklyGoalsForm = this.fb.group({
+  /** FormControls for editing past goals and adding a new one */
+  weeklyGoalsForm = this.fb.group({
     allGoals: this.fb.array([
       this.fb.group({
         text: ['', Validators.required],
@@ -57,6 +57,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
       }),
     ]),
   });
+
   /** Getter for the form array with a type that allows use of controls. */
   get allGoals() {
     return this.weeklyGoalsForm.get('allGoals') as FormArray;
@@ -76,6 +77,39 @@ export class WeeklyGoalsModalComponent implements OnInit {
   endOfWeek = endOfWeek; // import from time.utils.ts
 
   startOfWeek = startOfWeek; // import from time.utils.ts
+
+  /**
+   * Get the count of newly added goals that are not marked for deletion.
+   * A goal is considered newly added if its `_new` flag is true.
+   */
+  get addedGoalsCount() {
+    // Filter the goals to find those that are newly added (_new is true) and not marked as deleted (_deleted is false)
+    return this.allGoals.controls.filter((goal) => goal.value._new && !goal.value._deleted).length;
+  }
+  
+  /**
+   * Calculates the number of edited goals.
+   * Only counts goals that are dirty (edited), have different text from original,
+   * are not newly added (_new is false), and are not marked as deleted (_deleted is false).
+   */
+  get editedGoalsCount() {
+    return this.allGoals.controls.filter((goal) =>
+      goal.dirty && // Check if the goal has been edited
+      goal.value.text !== goal.value.originalText && // Compare current text with original text
+      !goal.value._new && // Ensure the goal is not newly added
+      !goal.value._deleted, // Ensure the goal is not marked for deletion
+    ).length;
+  }
+
+  
+  /**
+   * Get the count of goals that are marked for deletion.
+   * A goal is considered marked for deletion if its `_deleted` flag is true.
+   */
+  get deletedGoalsCount() {
+    // Filter the goals to find those that are marked as deleted (_deleted is true)
+    return this.allGoals.controls.filter((goal) => goal.value._deleted).length;
+  }  
 
   // --------------- EVENT HANDLING ----------------------
   /** Add a goal to the form. */
@@ -127,6 +161,11 @@ export class WeeklyGoalsModalComponent implements OnInit {
     formArray.setControl(to, temp);
   }
 
+  /** Save any updates for any of the goals. */
+   async saveGoals() {
+    await this.data.updateWeeklyGoals(this.allGoals);
+  }
+
   // --------------- OTHER -------------------------------
 
   constructor(
@@ -134,6 +173,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {
       goalDatas: Partial<QuarterlyGoalData>[],
       incompleteGoals: WeeklyGoal[],
+      updateWeeklyGoals: ( weeklyGoalsFormArray: FormArray ) => void,
     },
     public dialogRef: MatDialogRef<WeeklyGoalsModalComponent>,
     private fb: FormBuilder,

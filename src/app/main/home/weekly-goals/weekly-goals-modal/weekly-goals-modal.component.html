@@ -8,7 +8,7 @@
     </div>
     <time class="date-range"><b>{{ startOfWeek() + ' - ' + endOfWeek() }}</b></time>
   </header>
-  <form [formGroup]="weeklyGoalsForm">
+  <form [formGroup]="weeklyGoalsForm" (ngSubmit)="saveGoals()">
     <section class="goal-list" cdkDropList (cdkDropListDropped)="drop($event)">
       <div class="goal-container" formArrayName="allGoals">
         <div *ngFor="let goal of allGoals.controls; let i=index" class="goal-item" cdkDrag cdkDrag cdkDragPreviewContainer="parent">
@@ -36,6 +36,33 @@
         </div>
       </div>
     </section>
+    <!-- section where user can add a goal or save their changes -->
+    <div class="add-goal-button" mat-button aria-label="Add goal">
+      <div mat-button class="add-goal" (click)="addGoalToForm(null)">+ Add a weekly goal</div>
+    </div>
+    <div class="added-goals">
+      @if ( addedGoalsCount!==0 || editedGoalsCount!==0 || deletedGoalsCount!==0 ) {
+        <div class="tracking-counts">
+          <p class="pending">Pending Changes</p>
+          @if (addedGoalsCount !== 0) {
+            <span>Adding {{ addedGoalsCount }}</span>
+            @if (editedGoalsCount !== 0 || deletedGoalsCount !== 0) {
+              <span>, </span>
+            }
+          }
+          @if (editedGoalsCount !== 0) {
+            <span>Editing {{ editedGoalsCount }}</span>
+            @if (deletedGoalsCount !== 0) {
+              <span>, </span>
+            }
+          }
+          @if (deletedGoalsCount !== 0) {
+            <span>Deleting {{ deletedGoalsCount }}</span>
+          }
+        </div>
+      }
+      <button class="save-button" type="submit" [disabled]="!weeklyGoalsForm.valid">Save</button>
+    </div>
   </form>
   
 </div>
