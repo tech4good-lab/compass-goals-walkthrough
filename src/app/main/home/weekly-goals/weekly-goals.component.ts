@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit, Signal, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
 import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 import { WeeklyGoalsHeaderComponent } from './weekly-goals-header/weekly-goals-header.component';
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
@@ -45,6 +45,7 @@ export class WeeklyGoalsComponent implements OnInit {
   currentUser: Signal<User> = this.authStore.user;
 
   // --------------- LOCAL UI STATE ----------------------
+
 
   /** For storing the dialogRef in the opened modal. */
   dialogRef: MatDialogRef<any>;
@@ -103,17 +104,32 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- EVENT HANDLING ----------------------
 
-  /** Check weekly goal. */
+  /** Update weekly goal. */
   async checkGoal(goal: WeeklyGoalData) {
-    this.snackBar.open(
-      `Clicked on goal "${goal.text}"`,
-      '',
-      {
+    try {
+      await this.weeklyGoalStore.update(goal.__id, {
+        completed: !goal.completed,
+        ...(!goal.completed ? { endDate: Timestamp.now() } : {}),
+      }, {
+        optimistic: true,
+      });
+      this.snackBar.open(
+          goal.completed ? 'Marked goal as incomplete' : 'Marked goal as complete',
+          '',
+          {
+            duration: 3000,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+          },
+      );
+    } catch (e) {
+      console.error(e);
+      this.snackBar.open('Failed to update goal', '', {
         duration: 3000,
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
-      },
-    );
+      });
+    }
   }
 
   /** Open add or edit goals modal for weekly goals. */
@@ -127,29 +143,28 @@ export class WeeklyGoalsComponent implements OnInit {
         incompleteGoals: this.incompleteWeeklyGoals(),
         updateWeeklyGoals: async (weeklyGoalsFormArray) => {
           try {
-            await Promise.all(weeklyGoalsFormArray.controls.map(async (control, i) => {
-              // if this is a new quarter goal
-              if (!control.value.__weeklyGoalId) {
-                await this.addNewGoal(control.value, i);
-              // if it's a goal that's getting deleted
-              } else if (control.value._deleted) {
-                await this.removeGoal(control.value);
-              // if it's a goal that's getting updated
-              } else {
-                await this.updateGoal(control.value, i);
-              }
-            }));
-  
-            this.dialogRef.close();
-            this.snackBar.open(
-              `Goals were updated`,
-              '',
-              {
-                duration: 3000,
-                verticalPosition: 'bottom',
-                horizontalPosition: 'center',
+            this.batch.batchWrite(async (batchConfig) => {
+              await Promise.all(weeklyGoalsFormArray.controls.map(async (control, i) => {
+                // if this is a new quarter goal
+                if (!control.value.__weeklyGoalId) {
+                  await this.addNewGoal(control.value, i, batchConfig);
+                // if it's a goal that's getting deleted
+                } else if (control.value._deleted) {
+                  await this.removeGoal(control.value, batchConfig);
+                // if it's a goal that's getting updated
+                } else {
+                  await this.updateGoal(control.value, i, batchConfig);
+                }
+              }));
+            }, {
+              optimistic: true,
+              snackBarConfig: {
+                successMessage: 'Goals successfully updated',
+                failureMessage: 'Goal not added successfully',
+                undoOnAction: true,
+                config: { duration: 5000 },
               },
-            );
+            });
             this.dialogRef.close();
           } catch (e) {
             console.error(e);
@@ -162,7 +177,8 @@ export class WeeklyGoalsComponent implements OnInit {
   // --------------- OTHER -------------------------------
 
   /** Helper function for adding a new goal to the batch write */
-  async addNewGoal(controlValue, i) {
+  /** Helper function for adding a new goal to the batch write */
+  async addNewGoal(controlValue, i, batchConfig) {
     // Add a quarterly goal
     await this.weeklyGoalStore.add(Object.assign({}, {
       __userId: this.currentUser().__id,
@@ -171,17 +187,17 @@ export class WeeklyGoalsComponent implements OnInit {
       completed: false,
       order: i + 1,
       _deleted: controlValue._deleted,
-    }));
+    }), { batchConfig });
   }
 
   /** Helper function for removing a goal in the batch write */
-  async removeGoal(controlValue) {
+  async removeGoal(controlValue, batchConfig) {
     // no restrictions on deleting weekly goals, unlike quarterly goals
-    await this.weeklyGoalStore.remove(controlValue.__weeklyGoalId);
+    await this.weeklyGoalStore.remove(controlValue.__weeklyGoalId, { batchConfig });
   }
 
   /** Helper function for updating a goal in the batch write */
-  async updateGoal(controlValue, i) {
+  async updateGoal(controlValue, i, batchConfig) {
     // text or quarterly goal has changed, general update
     if (controlValue.originalText !== controlValue.text || controlValue.originalOrder !== i+1 || (!controlValue.originalQuarterlyGoalId && controlValue.__quarterlyGoalId)) {
       await this.weeklyGoalStore.update(controlValue.__weeklyGoalId, Object.assign({}, {
@@ -189,14 +205,14 @@ export class WeeklyGoalsComponent implements OnInit {
         text: controlValue.text,
         order: i + 1,
         _deleted: controlValue._deleted,
-      }));
+      }), { batchConfig });
     }
   }
 
   constructor(
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-
+    @Inject(BATCH_WRITE_SERVICE) private batch: BatchWriteService,
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
