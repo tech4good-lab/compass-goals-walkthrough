@@ -15,6 +15,8 @@ import { HashtagStore, LoadHashtag } from 'src/app/core/store/hashtag/hashtag.st
 import { WeeklyGoalStore } from 'src/app/core/store/weekly-goal/weekly-goal.store';
 import { LoadQuarterlyGoal, QuarterlyGoalStore } from 'src/app/core/store/quarterly-goal/quarterly-goal.store';
 import { getStartWeekDate } from 'src/app/core/utils/time.utils';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -24,11 +26,11 @@ import { getStartWeekDate } from 'src/app/core/utils/time.utils';
   animations: WeeklyGoalsAnimations,
   standalone: true,
   imports: [
+    MatButton,
     // Components
     WeeklyGoalsItemComponent,
     WeeklyGoalsHeaderComponent,
     WeeklyGoalsModalComponent,
-    CommonModule,
   ],
 })
 export class WeeklyGoalsComponent implements OnInit {
@@ -42,6 +44,9 @@ export class WeeklyGoalsComponent implements OnInit {
   currentUser: Signal<User> = this.authStore.user;
 
   // --------------- LOCAL UI STATE ----------------------
+
+  /** For storing the dialogRef in the opened modal. */
+  dialogRef: MatDialogRef<any>;
 
   // --------------- COMPUTED DATA -----------------------
 
@@ -96,23 +101,20 @@ export class WeeklyGoalsComponent implements OnInit {
     );
   }
 
-  /** Update weekly goals. */
-  async updateGoals(editClicked: boolean) {
-    this.snackBar.open(
-      'Clicked on edit icon',
-      '',
-      {
-        duration: 3000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      },
-    );
+  /** Open add or edit goals modal for weekly goals. */
+  openModal(editClicked: boolean) {
+    this.dialogRef = this.dialog.open(WeeklyGoalsModalComponent, {
+      height: '90%',
+      position: { bottom: '0' },
+      panelClass: 'goal-modal-panel',
+    });
   }
 
   // --------------- OTHER -------------------------------
 
   constructor(
     private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
