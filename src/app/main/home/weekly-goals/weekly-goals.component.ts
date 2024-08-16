@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Signal } from '@angular/core';
 import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 import { WeeklyGoalsHeaderComponent } from './weekly-goals-header/weekly-goals-header.component';
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
@@ -6,6 +6,8 @@ import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-mod
 import { Timestamp } from '@angular/fire/firestore';
 import { WeeklyGoalData } from '../home.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { of } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -17,6 +19,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   imports: [
     // Components
     WeeklyGoalsItemComponent,
+    WeeklyGoalsHeaderComponent,
+    WeeklyGoalsModalComponent
   ],
 })
 export class WeeklyGoalsComponent implements OnInit {
