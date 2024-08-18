@@ -3,7 +3,7 @@
 	@if (currentUser()) {
 		<div class="user-setting-section">
 			<img class="profile-pic" [src]="currentUser().photoURL">
-			<button class="logout" mat-raised-button>logout</button>
+			<button class="logout" mat-raised-button (click)="logout()">logout</button>
 		</div>
 	}
 </div>

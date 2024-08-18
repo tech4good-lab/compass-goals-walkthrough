@@ -3,6 +3,7 @@ import { NavbarAnimations } from './navbar.animation';
 import { MatButtonModule } from '@angular/material/button';
 import { AccessState, User } from 'src/app/core/store/user/user.model';
 import { Timestamp } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-navbar',
@@ -37,10 +38,24 @@ export class NavbarComponent implements OnInit {
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
+  logout() {
+    this.snackBar.open(
+      `${this.currentUser().name} logged out`,
+      '',
+      {
+        duration: 3000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      },
+    );
+    this.currentUser.set(null);
+  }
 
   // --------------- OTHER -------------------------------
 
-  constructor() {
+  constructor(
+    private snackBar: MatSnackBar,
+  ) {
   }
 
   ngOnInit(): void {
