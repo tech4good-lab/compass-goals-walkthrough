@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class NavbarComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
+  photoURL: 'http://loremflickr.com/100/100';
 
   // --------------- LOCAL UI STATE ----------------------
 
