@@ -1,6 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, signal, WritableSignal } from '@angular/core';
 import { NavbarAnimations } from './navbar.animation';
 import { MatButtonModule } from '@angular/material/button';
+import { AccessState, User } from 'src/app/core/store/user/user.model';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +17,20 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class NavbarComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
-  photoURL: 'http://loremflickr.com/100/100';
+  sampleUserData : User ={
+    __id: '1',
+    email: 'a@sample.com',
+    name: 'User A',
+    photoURL: 'http://loremflickr.com/100/100',
+    isAdmin: false,
+    consented: true,
+    accessState: AccessState.DONE,
+    _createdAt: Timestamp.now(),
+    _updatedAt: Timestamp.now(),
+    _deleted: false,
+  };
+
+  currentUser: WritableSignal<User> = signal<User | null>(this.sampleUserData);
 
   // --------------- LOCAL UI STATE ----------------------
 
