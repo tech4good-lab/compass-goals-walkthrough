@@ -12,7 +12,7 @@ import { WeeklyGoalsComponent } from './weekly-goals/weekly-goals.component';
   imports: [
     // Containers
     WeeklyGoalsComponent,
-  ]
+  ],
 })
 export class HomeComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------

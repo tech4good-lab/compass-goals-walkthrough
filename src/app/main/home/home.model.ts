@@ -13,10 +13,8 @@ export interface QuarterlyGoalData extends QuarterlyGoal {
 }
 
 export interface WeeklyGoalInForm {
-  // Form fields
   text: string;
-  __quarterlyGoalId: string; // changed from hashtagId
-  // Just available for saving to DB later
+  __quarterlyGoalId: string;
   _deleted: boolean;
   originalText?: string;
   __weeklyGoalId?: string;

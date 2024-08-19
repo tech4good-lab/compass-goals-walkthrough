@@ -37,7 +37,7 @@ import { endOfWeek, startOfWeek } from 'src/app/core/utils/time.utils';
     MatInput,
     MatSelect,
     MatOption,
-    NgFor
+    NgFor,
   ],
 })
 export class WeeklyGoalsModalComponent implements OnInit {
@@ -86,7 +86,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
     // Filter the goals to find those that are newly added (_new is true) and not marked as deleted (_deleted is false)
     return this.allGoals.controls.filter((goal) => goal.value._new && !goal.value._deleted).length;
   }
-  
+
   /**
    * Calculates the number of edited goals.
    * Only counts goals that are dirty (edited), have different text from original,
@@ -101,7 +101,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
     ).length;
   }
 
-  
+
   /**
    * Get the count of goals that are marked for deletion.
    * A goal is considered marked for deletion if its `_deleted` flag is true.
@@ -109,7 +109,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
   get deletedGoalsCount() {
     // Filter the goals to find those that are marked as deleted (_deleted is true)
     return this.allGoals.controls.filter((goal) => goal.value._deleted).length;
-  }  
+  }
 
   // --------------- EVENT HANDLING ----------------------
   /** Add a goal to the form. */
@@ -162,7 +162,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
   }
 
   /** Save any updates for any of the goals. */
-   async saveGoals() {
+  async saveGoals() {
     await this.data.updateWeeklyGoals(this.allGoals);
   }
 
@@ -173,13 +173,11 @@ export class WeeklyGoalsModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {
       goalDatas: Partial<QuarterlyGoalData>[],
       incompleteGoals: WeeklyGoal[],
-      loading: WritableSignal<boolean>, // so the modal can know the status of loading/updates
       updateWeeklyGoals: ( weeklyGoalsFormArray: FormArray ) => void,
     },
     public dialogRef: MatDialogRef<WeeklyGoalsModalComponent>,
     private fb: FormBuilder,
-    @Inject(BATCH_WRITE_SERVICE) private batch: BatchWriteService,
-  ) { 
+  ) {
     // Initialize the quarterGoalsForm with the set of incompleteGoals
     this.allGoals.clear();
     if (this.data.incompleteGoals.length == 0) {

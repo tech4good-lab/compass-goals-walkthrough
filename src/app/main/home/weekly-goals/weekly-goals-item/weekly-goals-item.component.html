@@ -1,4 +1,3 @@
-@if (goal()) {
 <div class="weekly-goals-item-container">
    <mat-checkbox class="check-box" [checked]="goal().completed" (click)="checkGoal()"></mat-checkbox>
    <div class="goal-details">
@@ -6,6 +5,3 @@
       <div class="goal-hashtag">#{{ goal().hashtag?.name }}</div>
    </div>
 </div>
-} @else {
-   <mat-spinner [diameter]="40" [strokeWidth]="4"></mat-spinner>
-}
