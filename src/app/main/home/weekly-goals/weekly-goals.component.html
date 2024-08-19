@@ -2,6 +2,6 @@
   <app-weekly-goals-header (editClicked)="openModal($event)"/>
   @for (goal of weeklyGoals; track goal.__id) {
     <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
-  }
-  <div>+ Add a quarter goal</div>
+  }>
+  <div class="add-goal">+ Add a quarter goal</div>
 </div>
