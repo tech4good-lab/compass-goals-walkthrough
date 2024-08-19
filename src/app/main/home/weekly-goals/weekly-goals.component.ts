@@ -8,6 +8,7 @@ import { QuarterlyGoalData, WeeklyGoalData } from '../home.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccessState, User } from 'src/app/core/store/user/user.model';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -17,6 +18,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   animations: WeeklyGoalsAnimations,
   standalone: true,
   imports: [
+    MatButton,
     // Components
     WeeklyGoalsItemComponent,
     WeeklyGoalsHeaderComponent,
