@@ -59,7 +59,7 @@ export class WeeklyGoalsComponent implements OnInit {
       _deleted: false,
       hashtag: {
         __id: 'ht1',
-        name: 'apply-internships',
+        name: 'coverletter',
         color: '#EE8B72',
         _createdAt: Timestamp.now(),
         _updatedAt: Timestamp.now(),
