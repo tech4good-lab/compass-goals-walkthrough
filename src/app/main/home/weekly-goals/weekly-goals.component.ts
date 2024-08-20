@@ -15,6 +15,7 @@ import { HashtagStore, LoadHashtag } from 'src/app/core/store/hashtag/hashtag.st
 import { LoadQuarterlyGoal, QuarterlyGoalStore } from 'src/app/core/store/quarterly-goal/quarterly-goal.store';
 import { WeeklyGoalStore } from 'src/app/core/store/weekly-goal/weekly-goal.store';
 import { getStartWeekDate } from 'src/app/core/utils/time.utils';
+import { BATCH_WRITE_SERVICE, BatchWriteService } from 'src/app/core/store/batch-write.service';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -139,27 +140,27 @@ export class WeeklyGoalsComponent implements OnInit {
         incompleteGoals: this.incompleteWeeklyGoals(),
         updateWeeklyGoals: async (weeklyGoalsFormArray) => {
           try {
-            await Promise.all(weeklyGoalsFormArray.controls.map(async (control, i) => {
-              // if this is a new quarter goal
-              if (!control.value.__weeklyGoalId) {
-                await this.addNewGoal(control.value, i);
-              // if it's a goal that's getting deleted
-              } else if (control.value._deleted) {
-                await this.removeGoal(control.value);
-              // if it's a goal that's getting updated
-              } else {
-                await this.updateGoal(control.value, i);
-              }
-            }));
-            this.snackBar.open(
-              `Goals were updated`,
-              '',
-              {
-                duration: 3000,
-                verticalPosition: 'bottom',
-                horizontalPosition: 'center',
+            this.batch.batchWrite(async (batchConfig) => {
+              await Promise.all(weeklyGoalsFormArray.controls.map(async (control, i) => {
+                // if this is a new quarter goal
+                if (!control.value.__weeklyGoalId) {
+                  await this.addNewGoal(control.value, i, batchConfig);
+                // if it's a goal that's getting deleted
+                } else if (control.value._deleted) {
+                  await this.removeGoal(control.value, batchConfig);
+                // if it's a goal that's getting updated
+                } else {
+                  await this.updateGoal(control.value, i, batchConfig);
+                }
+              }));
+            }, {
+              snackBarConfig: {
+                successMessage: 'Goals successfully updated',
+                failureMessage: 'Goal not added successfully',
+                undoOnAction: true,
+                config: { duration: 5000 },
               },
-            );
+            });
             this.dialogRef.close();
           } catch (e) {
             console.error(e);
@@ -173,7 +174,7 @@ export class WeeklyGoalsComponent implements OnInit {
 
 
   /** Adds a goal based off form values */
-  async addNewGoal(controlValue, i) {
+  async addNewGoal(controlValue, i, batchConfig) {
     // Add a quarterly goal
     await this.weeklyGoalStore.add(Object.assign({}, {
       __userId: this.currentUser().__id,
@@ -182,17 +183,17 @@ export class WeeklyGoalsComponent implements OnInit {
       completed: false,
       order: i + 1,
       _deleted: controlValue._deleted,
-    }));
+    }), { batchConfig });
   }
 
   /** Removes some goal based off form values */
-  async removeGoal(controlValue) {
+  async removeGoal(controlValue, batchConfig) {
     // no restrictions on deleting weekly goals, unlike quarterly goals
-    await this.weeklyGoalStore.remove(controlValue.__weeklyGoalId);
+    await this.weeklyGoalStore.remove(controlValue.__weeklyGoalId, { batchConfig });
   }
 
   /** Updates some goal based off form values */
-  async updateGoal(controlValue, i) {
+  async updateGoal(controlValue, i, batchConfig) {
     // text or quarterly goal has changed, general update
     if (controlValue.originalText !== controlValue.text || controlValue.originalOrder !== i+1 || (!controlValue.originalQuarterlyGoalId && controlValue.__quarterlyGoalId)) {
       await this.weeklyGoalStore.update(controlValue.__weeklyGoalId, Object.assign({}, {
@@ -200,7 +201,7 @@ export class WeeklyGoalsComponent implements OnInit {
         text: controlValue.text,
         order: i + 1,
         _deleted: controlValue._deleted,
-      }));
+      }), { batchConfig });
     }
   }
 
@@ -208,6 +209,7 @@ export class WeeklyGoalsComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
+    @Inject(BATCH_WRITE_SERVICE) private batch: BatchWriteService,
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
