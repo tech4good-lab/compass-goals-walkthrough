@@ -1,9 +1,3 @@
 <div class="weekly-goals-container">
   <app-weekly-goals-header (editClicked)="openModal($event)"/>
-  @for (goal of weeklyGoals; track goal.__id) {
-    <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
-  }
-  <button mat-button aria-label="Add goal" (click)="openModal(true)">
-    <div class="add-goal">+ Add a weekly goal</div>
-  </button>
 </div>
