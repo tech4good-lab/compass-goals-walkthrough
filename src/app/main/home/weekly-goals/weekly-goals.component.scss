@@ -9,6 +9,8 @@ $card-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   box-shadow: $card-shadow;
   border: 3px solid $card-border-color;
   .goals-content {
+    display: flex;
+    flex-direction: column;
     .add-goal {
       color: #5A5A5A;
       font-family: Oxygen, "Helvetica Neue", sans-serif;
