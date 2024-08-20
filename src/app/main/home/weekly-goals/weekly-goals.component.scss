@@ -1,4 +1,13 @@
+$card-background-color: #fff;
+$card-border-color: #ade1dd;
+$card-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+
 .weekly-goals-container {
+  background-color: white;
+  border-radius: 10px 10px 0px 0px;
+  background-color: $card-background-color;
+  box-shadow: $card-shadow;
+  border: 3px solid $card-border-color;
   .goals-content {
     .add-goal {
       color: #5A5A5A;
