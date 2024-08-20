@@ -3,5 +3,7 @@
   @for (goal of weeklyGoals; track goal.__id) {
     <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
   }
-  <div class="add-goal">+ Add a quarter goal</div>
+  <button mat-button aria-label="Add goal" (click)="openModal(true)">
+    <div class="add-goal">+ Add a quarter goal</div>
+  </button>
 </div>
