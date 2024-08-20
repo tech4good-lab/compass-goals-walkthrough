@@ -34,26 +34,92 @@ export class WeeklyGoalsComponent implements OnInit {
   // --------------- LOCAL UI STATE ----------------------
 
   /** The current signed in user. */
-  currentUser: Signal<User> = toSignal(of({
-    __id: 'test-user',
-    email: 'a@sample.com',
-    name: 'User A',
-    photoURL: 'http://loremflickr.com/100/100',
-    isAdmin: false,
-    consented: true,
-    accessState: AccessState.DONE,
-    _createdAt: Timestamp.now(),
-    _updatedAt: Timestamp.now(),
-    _deleted: false,
-  }));
+  currentUser: Signal<User> = computed(() => {
+    return {
+      __id: 'test-user',
+      email: 'a@sample.com',
+      name: 'User A',
+      photoURL: 'http://loremflickr.com/100/100',
+      isAdmin: false,
+      consented: true,
+      accessState: AccessState.DONE,
+      _createdAt: Timestamp.now(),
+      _updatedAt: Timestamp.now(),
+      _deleted: false,
+    }
+  });
 
-  weeklyGoals: Signal<WeeklyGoalData[]> = toSignal(of([
-    {
-      __id: 'wg1',
+  weeklyGoals: Signal<WeeklyGoalData[]> = computed(() => {
+    return [
+      {
+        __id: 'wg1',
+        __userId: 'test-user',
+        __quarterlyGoalId: 'qg1',
+        __hashtagId: 'ht1',
+        text: 'Finish Google Cover Letter',
+        completed: false,
+        order: 1,
+        _createdAt: Timestamp.now(),
+        _updatedAt: Timestamp.now(),
+        _deleted: false,
+        hashtag: {
+          __id: 'ht1',
+          name: 'coverletter',
+          color: '#EE8B72',
+          _createdAt: Timestamp.now(),
+          _updatedAt: Timestamp.now(),
+          _deleted: false,
+        },
+      },
+      {
+        __id: 'wg2',
+        __userId: 'test-user',
+        __quarterlyGoalId: 'qg2',
+        __hashtagId: 'ht2',
+        text: 'Apply to Microsoft',
+        completed: false,
+        order: 2,
+        _createdAt: Timestamp.now(),
+        _updatedAt: Timestamp.now(),
+        _deleted: false,
+        hashtag: {
+          __id: 'ht2',
+          name: 'apply',
+          color: '#2DBDB1',
+          _createdAt: Timestamp.now(),
+          _updatedAt: Timestamp.now(),
+          _deleted: false,
+        },
+      },
+      {
+        __id: 'wg3',
+        __userId: 'test-user',
+        __quarterlyGoalId: 'qg3',
+        __hashtagId: 'ht3',
+        text: 'Review data structures',
+        completed: false,
+        order: 3,
+        _createdAt: Timestamp.now(),
+        _updatedAt: Timestamp.now(),
+        _deleted: false,
+        hashtag: {
+          __id: 'ht3',
+          name: 'interview',
+          color: '#FFB987',
+          _createdAt: Timestamp.now(),
+          _updatedAt: Timestamp.now(),
+          _deleted: false,
+        },
+      },
+    ];
+  });
+
+  quarterlyGoals: Signal<QuarterlyGoalData[]> = computed(() => {
+    return [{
+      __id: 'qg1',
       __userId: 'test-user',
-      __quarterlyGoalId: 'qg1',
       __hashtagId: 'ht1',
-      text: 'Finish Google Cover Letter',
+      text: 'Finish cover letters',
       completed: false,
       order: 1,
       _createdAt: Timestamp.now(),
@@ -67,13 +133,14 @@ export class WeeklyGoalsComponent implements OnInit {
         _updatedAt: Timestamp.now(),
         _deleted: false,
       },
+      weeklyGoalsTotal: 1,
+      weeklyGoalsComplete: 0,
     },
     {
-      __id: 'wg2',
+      __id: 'qg2',
       __userId: 'test-user',
-      __quarterlyGoalId: 'qg2',
       __hashtagId: 'ht2',
-      text: 'Apply to Microsoft',
+      text: 'Apply to internships',
       completed: false,
       order: 2,
       _createdAt: Timestamp.now(),
@@ -87,13 +154,14 @@ export class WeeklyGoalsComponent implements OnInit {
         _updatedAt: Timestamp.now(),
         _deleted: false,
       },
+      weeklyGoalsTotal: 1,
+      weeklyGoalsComplete: 0,
     },
     {
-      __id: 'wg3',
+      __id: 'qg3',
       __userId: 'test-user',
-      __quarterlyGoalId: 'qg3',
       __hashtagId: 'ht3',
-      text: 'Review data structures',
+      text: 'Technical interview prep!',
       completed: false,
       order: 3,
       _createdAt: Timestamp.now(),
@@ -107,72 +175,11 @@ export class WeeklyGoalsComponent implements OnInit {
         _updatedAt: Timestamp.now(),
         _deleted: false,
       },
-    },
-  ]));
+      weeklyGoalsTotal: 1,
+      weeklyGoalsComplete: 0,
+    }]
+  });
 
-  quarterlyGoals: Signal<QuarterlyGoalData[]> = toSignal(of([{
-    __id: 'qg1',
-    __userId: 'test-user',
-    __hashtagId: 'ht1',
-    text: 'Finish cover letters',
-    completed: false,
-    order: 1,
-    _createdAt: Timestamp.now(),
-    _updatedAt: Timestamp.now(),
-    _deleted: false,
-    hashtag: {
-      __id: 'ht1',
-      name: 'coverletter',
-      color: '#EE8B72',
-      _createdAt: Timestamp.now(),
-      _updatedAt: Timestamp.now(),
-      _deleted: false,
-    },
-    weeklyGoalsTotal: 1,
-    weeklyGoalsComplete: 0,
-  },
-  {
-    __id: 'qg2',
-    __userId: 'test-user',
-    __hashtagId: 'ht2',
-    text: 'Apply to internships',
-    completed: false,
-    order: 2,
-    _createdAt: Timestamp.now(),
-    _updatedAt: Timestamp.now(),
-    _deleted: false,
-    hashtag: {
-      __id: 'ht2',
-      name: 'apply',
-      color: '#2DBDB1',
-      _createdAt: Timestamp.now(),
-      _updatedAt: Timestamp.now(),
-      _deleted: false,
-    },
-    weeklyGoalsTotal: 1,
-    weeklyGoalsComplete: 0,
-  },
-  {
-    __id: 'qg3',
-    __userId: 'test-user',
-    __hashtagId: 'ht3',
-    text: 'Technical interview prep!',
-    completed: false,
-    order: 3,
-    _createdAt: Timestamp.now(),
-    _updatedAt: Timestamp.now(),
-    _deleted: false,
-    hashtag: {
-      __id: 'ht3',
-      name: 'interview',
-      color: '#FFB987',
-      _createdAt: Timestamp.now(),
-      _updatedAt: Timestamp.now(),
-      _deleted: false,
-    },
-    weeklyGoalsTotal: 1,
-    weeklyGoalsComplete: 0,
-  }]));
 
   /** For storing the dialogRef in the opened modal. */
   dialogRef: MatDialogRef<any>;
