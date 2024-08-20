@@ -1,3 +1,19 @@
 <div class="weekly-goals-container">
-  <div>{{ currentUser() | json }}</div>
+  <div><b>Store (Weekly Goals):</b></div>
+  <div *ngFor="let qg of weeklyGoalStore.entities() | keyvalue">
+    <div><b>{{ qg.key }}:</b> {{ qg.value | json }}</div>
+    <br/>
+  </div>
+  <br/>
+  <div><b>Store (Quarter Goals):</b></div>
+  <div *ngFor="let wg of quarterlyGoalStore.entities() | keyvalue">
+    <div><b>{{ wg.key }}:</b> {{ wg.value | json }}</div>
+    <br/>
+  </div>
+  <br/>
+  <div><b>Store (Hashtag):</b></div>
+  <div *ngFor="let hg of hashtagStore.entities() | keyvalue">
+    <div><b>{{ hg.key }}:</b> {{ hg.value | json }}</div>
+    <br/>
+  </div>
 </div>
