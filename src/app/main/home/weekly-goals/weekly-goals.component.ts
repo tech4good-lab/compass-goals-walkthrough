@@ -9,13 +9,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccessState, User } from 'src/app/core/store/user/user.model';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
-import { HashtagStore } from 'src/app/core/store/hashtag/hashtag.store';
-import { QuarterlyGoalStore } from 'src/app/core/store/quarterly-goal/quarterly-goal.store';
+import { HashtagStore, LoadHashtag } from 'src/app/core/store/hashtag/hashtag.store';
+import { LoadQuarterlyGoal, QuarterlyGoalStore } from 'src/app/core/store/quarterly-goal/quarterly-goal.store';
 import { WeeklyGoalStore } from 'src/app/core/store/weekly-goal/weekly-goal.store';
+import { getStartWeekDate } from 'src/app/core/utils/time.utils';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -247,8 +246,18 @@ export class WeeklyGoalsComponent implements OnInit {
   // --------------- LOAD AND CLEANUP --------------------
 
   ngOnInit(): void {
-    this.weeklyGoalStore.load([], {});
-    this.quarterlyGoalStore.load([], {});
-    this.hashtagStore.load([], {});
+    // loading uncompleted goals
+    this.weeklyGoalStore.load([['__userId', '==', this.currentUser().__id], ['completed', '==', false]], { orderBy: "order" }, (wg) => [
+      LoadQuarterlyGoal.create(this.quarterlyGoalStore, [['__id', '==', wg.__quarterlyGoalId]], {}, (qg) => [
+        LoadHashtag.create(this.hashtagStore, [['__id', '==', qg.__hashtagId]], {}),
+      ]),
+    ]);
+
+    // loading completed goals
+    this.weeklyGoalStore.load([['__userId', '==', this.currentUser().__id], ['endDate', '>=', Timestamp.fromDate(getStartWeekDate())]], { orderBy: "order" }, (wg) => [
+      LoadQuarterlyGoal.create(this.quarterlyGoalStore, [['__id', '==', wg.__quarterlyGoalId]], {}, (qg) => [
+        LoadHashtag.create(this.hashtagStore, [['__id', '==', qg.__hashtagId]], {}),
+      ]),
+    ]);
   }
 }
