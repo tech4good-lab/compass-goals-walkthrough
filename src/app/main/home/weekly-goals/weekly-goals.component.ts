@@ -46,6 +46,9 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- LOCAL UI STATE ----------------------
 
+  /** Loading icon. */
+  loading: WritableSignal<boolean> = signal(false);
+
   /** Data for completed weekly goals. */
   completeWeeklyGoals: Signal<WeeklyGoalData[]> = computed(() => {
     const startOfWeek = getStartWeekDate();
@@ -138,6 +141,7 @@ export class WeeklyGoalsComponent implements OnInit {
       data: {
         goalDatas: this.quarterlyGoals(),
         incompleteGoals: this.incompleteWeeklyGoals(),
+        loading: this.loading,
         updateWeeklyGoals: async (weeklyGoalsFormArray) => {
           try {
             this.batch.batchWrite(async (batchConfig) => {
@@ -154,6 +158,8 @@ export class WeeklyGoalsComponent implements OnInit {
                 }
               }));
             }, {
+              optimistic: true,
+              loading: this.loading,
               snackBarConfig: {
                 successMessage: 'Goals successfully updated',
                 failureMessage: 'Goal not added successfully',
@@ -220,7 +226,7 @@ export class WeeklyGoalsComponent implements OnInit {
       LoadQuarterlyGoal.create(this.quarterlyGoalStore, [['__id', '==', wg.__quarterlyGoalId]], {}, (qg) => [
         LoadHashtag.create(this.hashtagStore, [['__id', '==', qg.__hashtagId]], {}),
       ]),
-    ]);
+    ], { loading: this.loading });
 
     // loading completed goals
     this.weeklyGoalStore.load([['__userId', '==', this.currentUser().__id], ['endDate', '>=', Timestamp.fromDate(getStartWeekDate())]], { orderBy: "order" }, (wg) => [

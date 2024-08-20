@@ -1,16 +1,18 @@
 <div class="weekly-goals-container">
   <app-weekly-goals-header (editClicked)="openModal($event)"/>
-  <div class="goals-content">
-    <div class="goals-list">
-      @for (goal of incompleteWeeklyGoals(); track goal.__id) {
-        <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
-      }
-      @for (goal of completeWeeklyGoals(); track goal.__id) {
-        <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
-      }
+    <div class="goals-content">
+      <div class="goals-list">
+        @if (!loading()) {
+          @for (goal of incompleteWeeklyGoals(); track goal.__id) {
+            <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
+          }
+          @for (goal of completeWeeklyGoals(); track goal.__id) {
+            <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
+          }
+        }
+      </div>
+      <button mat-button aria-label="Add goal" (click)="openModal(true)">
+        <div class="add-goal">+ Add a weekly goal</div>
+      </button>
     </div>
-    <button mat-button aria-label="Add goal" (click)="openModal(true)">
-      <div class="add-goal">+ Add a weekly goal</div>
-    </button>
-  </div>
 </div>

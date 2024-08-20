@@ -173,6 +173,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {
       goalDatas: Partial<QuarterlyGoalData>[],
       incompleteGoals: WeeklyGoal[],
+      loading: WritableSignal<boolean>, // so the modal can know the status of loading/updates
       updateWeeklyGoals: ( weeklyGoalsFormArray: FormArray ) => void,
     },
     public dialogRef: MatDialogRef<WeeklyGoalsModalComponent>,
