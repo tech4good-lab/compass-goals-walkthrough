@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccessState, User } from 'src/app/core/store/user/user.model';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -32,7 +34,7 @@ export class WeeklyGoalsComponent implements OnInit {
   // --------------- LOCAL UI STATE ----------------------
 
   /** The current signed in user. */
-  currentUser: User = {
+  currentUser: Signal<User> = toSignal(of({
     __id: 'test-user',
     email: 'a@sample.com',
     name: 'User A',
@@ -43,9 +45,9 @@ export class WeeklyGoalsComponent implements OnInit {
     _createdAt: Timestamp.now(),
     _updatedAt: Timestamp.now(),
     _deleted: false,
-  };
+  }));
 
-  weeklyGoals: WeeklyGoalData[] = [
+  weeklyGoals: Signal<WeeklyGoalData[]> = toSignal(of([
     {
       __id: 'wg1',
       __userId: 'test-user',
@@ -106,9 +108,9 @@ export class WeeklyGoalsComponent implements OnInit {
         _deleted: false,
       },
     },
-  ];
+  ]));
 
-  quarterlyGoals: QuarterlyGoalData[] = [{
+  quarterlyGoals: Signal<QuarterlyGoalData[]> = toSignal(of([{
     __id: 'qg1',
     __userId: 'test-user',
     __hashtagId: 'ht1',
@@ -170,7 +172,7 @@ export class WeeklyGoalsComponent implements OnInit {
     },
     weeklyGoalsTotal: 1,
     weeklyGoalsComplete: 0,
-  }];
+  }]));
 
   /** For storing the dialogRef in the opened modal. */
   dialogRef: MatDialogRef<any>;
