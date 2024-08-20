@@ -11,6 +11,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { AuthStore } from 'src/app/core/store/auth/auth.store';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -20,6 +22,7 @@ import { of } from 'rxjs';
   animations: WeeklyGoalsAnimations,
   standalone: true,
   imports: [
+    CommonModule,
     MatButton,
     // Components
     WeeklyGoalsItemComponent,
@@ -29,25 +32,13 @@ import { of } from 'rxjs';
 })
 
 export class WeeklyGoalsComponent implements OnInit {
+  readonly authStore = inject(AuthStore);
   // --------------- INPUTS AND OUTPUTS ------------------
 
-  // --------------- LOCAL UI STATE ----------------------
-
   /** The current signed in user. */
-  currentUser: Signal<User> = computed(() => {
-    return {
-      __id: 'test-user',
-      email: 'a@sample.com',
-      name: 'User A',
-      photoURL: 'http://loremflickr.com/100/100',
-      isAdmin: false,
-      consented: true,
-      accessState: AccessState.DONE,
-      _createdAt: Timestamp.now(),
-      _updatedAt: Timestamp.now(),
-      _deleted: false,
-    }
-  });
+  currentUser: Signal<User> = this.authStore.user;
+
+  // --------------- LOCAL UI STATE ----------------------
 
   weeklyGoals: Signal<WeeklyGoalData[]> = computed(() => {
     return [
