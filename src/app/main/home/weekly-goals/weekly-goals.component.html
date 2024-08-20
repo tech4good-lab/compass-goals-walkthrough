@@ -2,7 +2,10 @@
   <app-weekly-goals-header (editClicked)="openModal($event)"/>
   <div class="goals-content">
     <div class="goals-list">
-      @for (goal of weeklyGoals(); track goal.__id) {
+      @for (goal of incompleteWeeklyGoals(); track goal.__id) {
+        <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
+      }
+      @for (goal of completeWeeklyGoals(); track goal.__id) {
         <app-weekly-goals-item [goal]="goal" (checked)="checkGoal($event)"/>
       }
     </div>
