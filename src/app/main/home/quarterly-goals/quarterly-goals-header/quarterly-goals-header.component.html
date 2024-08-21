@@ -1,3 +1,9 @@
 <div class="quarterly-goals-header-container">
-  quarterly-goals-header works!
+  <div class="goal-titles">
+    <div class="quarterly-goals">Quarterly Goals</div>
+    <button class="edit-quarterly-goals" aria-label="Edit goals" (click)="editGoals()">
+      <img class="edit-icon" ngSrc="../../../../assets/images/edit.svg" alt="Edit" height="16" width="16"/>
+    </button>
+  </div>
+  <div class="goal-time">{{ getQuarterAndYear() }}</div>
 </div>

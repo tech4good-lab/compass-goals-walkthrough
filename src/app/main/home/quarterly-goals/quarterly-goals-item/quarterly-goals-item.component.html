@@ -1,3 +1,12 @@
-<div class="quarterly-goals-item-container">
-  quarterly-goals-item works!
-</div>
+@if (goal()) {
+  <div class="quarterly-goals-item-container">
+    <mat-checkbox class="check-box" [checked]="goal().completed" (click)="checkGoal(goal())"></mat-checkbox>
+    <div class="goal-details">
+      <div class="goal-title" [ngStyle]="{'text-decoration': goal().completed ? 'line-through' : 'none'}">{{ goal().text }}</div>
+      <div class="bottom-row">
+        <div class="goal-hashtag" [style.color]="goal().hashtag?.color">#{{ goal().hashtag?.name }}</div>
+        <div class="goal-count">{{ goal().weeklyGoalsComplete }} / {{ goal().weeklyGoalsTotal }}</div>
+      </div>
+    </div>
+  </div>
+}

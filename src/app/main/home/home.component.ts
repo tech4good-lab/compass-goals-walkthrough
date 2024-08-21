@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HomeAnimations } from './home.animations';
 import { WeeklyGoalsComponent } from './weekly-goals/weekly-goals.component';
+import { QuarterlyGoalsComponent } from './quarterly-goals/quarterly-goals.component';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import { WeeklyGoalsComponent } from './weekly-goals/weekly-goals.component';
   animations: HomeAnimations,
   imports: [
     /** Containers */
-    WeeklyGoalsComponent,
+    QuarterlyGoalsComponent,
   ]
 })
 export class HomeComponent implements OnInit {

@@ -1,7 +1,45 @@
-:host {
-  display: block;
-  .quarterly-goals-header-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
+.quarterly-goals-header-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 24px 10px 0px;
+  color: #4B5853;
+
+  .goal-titles {
+    display: flex;
+    width: 100%;
+
+    .quarterly-goals {
+      margin: 0;
+      font-weight: 400;
+      font-size: 28px;
+    }
+    .edit-quarterly-goals {
+      background: none;
+      border: none;
+      align-self: flex-end;
+      justify-self: flex-end;
+      margin-left: auto;
+      .edit-icon {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .edit-quarterly-goals {
+    background: none;
+    border: none;
+    .edit-icon {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+  .goal-time {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 21px;
   }
 }

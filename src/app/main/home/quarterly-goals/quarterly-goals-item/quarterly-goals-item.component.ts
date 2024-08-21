@@ -3,6 +3,9 @@ import { QuarterlyGoalsItemAnimations } from './quarterly-goals-item.animations'
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
+import { QuarterlyGoalData } from '../../home.model';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-quarterly-goals-item',
@@ -12,23 +15,25 @@ import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch
   animations: QuarterlyGoalsItemAnimations,
   standalone: true,
   imports: [
+    MatCheckbox,
+    NgStyle,
   ],
 })
 export class QuarterlyGoalsItemComponent implements OnInit {
-  readonly authStore = inject(AuthStore);
   // --------------- INPUTS AND OUTPUTS ------------------
 
-  /** The current signed in user. */
-  currentUser: Signal<User> = this.authStore.user;
+  goal = input.required<QuarterlyGoalData>();
+  checked = output<QuarterlyGoalData>();
 
   // --------------- LOCAL UI STATE ----------------------
-
-  /** Loading icon. */
-  loading: WritableSignal<boolean> = signal(false);
 
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
+   /** Update weekly goal. */
+   checkGoal(goal: QuarterlyGoalData) {
+    this.checked.emit(goal);
+  }
 
   // --------------- OTHER -------------------------------
 

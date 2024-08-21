@@ -3,6 +3,8 @@ import { QuarterlyGoalsHeaderAnimations } from './quarterly-goals-header.animati
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
+import { getQuarterAndYear } from 'src/app/core/utils/time.utils';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-quarterly-goals-header',
@@ -12,23 +14,27 @@ import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch
   animations: QuarterlyGoalsHeaderAnimations,
   standalone: true,
   imports: [
+    NgOptimizedImage,
   ],
 })
 export class QuarterlyGoalsHeaderComponent implements OnInit {
-  readonly authStore = inject(AuthStore);
   // --------------- INPUTS AND OUTPUTS ------------------
 
-  /** The current signed in user. */
-  currentUser: Signal<User> = this.authStore.user;
+  // no input for this component – it's not needed :)
+  editClicked = output<boolean>();
 
   // --------------- LOCAL UI STATE ----------------------
 
-  /** Loading icon. */
-  loading: WritableSignal<boolean> = signal(false);
-
   // --------------- COMPUTED DATA -----------------------
 
+  getQuarterAndYear = getQuarterAndYear;
+
   // --------------- EVENT HANDLING ----------------------
+
+  /** Update weekly goal. */
+  editGoals() {
+    this.editClicked.emit(true);
+  }
 
   // --------------- OTHER -------------------------------
 
