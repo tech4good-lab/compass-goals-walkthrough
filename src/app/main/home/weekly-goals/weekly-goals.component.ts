@@ -172,62 +172,22 @@ export class WeeklyGoalsComponent implements OnInit {
     weeklyGoalsComplete: 0,
   }];
 
-  /** For storing the dialogRef in the opened modal. */
-  dialogRef: MatDialogRef<any>;
-
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
 
-  /** Update weekly goal. */
-  async checkGoal(goal: WeeklyGoalData) {
-    try {
-      this.snackBar.open(
-          goal.completed ? 'Marked goal as incomplete' : 'Marked goal as complete',
-          '',
-          {
-            duration: 3000,
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
-          },
-      );
-    } catch (e) {
-      console.error(e);
-      this.snackBar.open('Failed to update goal', '', {
-        duration: 3000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      });
-    }
-  }
 
   /** Open add or edit goals modal for weekly goals. */
   openModal(editClicked: boolean) {
-    this.dialogRef = this.dialog.open(WeeklyGoalsModalComponent, {
-      height: '90%',
-      position: { bottom: '0' },
-      panelClass: 'goal-modal-panel',
-      data: {
-        goalDatas: this.quarterlyGoals,
-        incompleteGoals: this.weeklyGoals,
-        updateWeeklyGoals: async (weeklyGoalsFormArray) => {
-          try {
-            this.snackBar.open(
-              `Goals were updated`,
-              '',
-              {
-                duration: 3000,
-                verticalPosition: 'bottom',
-                horizontalPosition: 'center',
-              },
-            );
-            this.dialogRef.close();
-          } catch (e) {
-            console.error(e);
-          }
-        },
+    this.snackBar.open(
+      'Clicked on edit icon',
+      '',
+      {
+        duration: 3000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
       },
-    });
+    );
   }
 
   // --------------- OTHER -------------------------------
@@ -235,7 +195,6 @@ export class WeeklyGoalsComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
