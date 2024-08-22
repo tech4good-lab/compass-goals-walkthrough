@@ -31,6 +31,9 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- LOCAL UI STATE ----------------------
 
+  /** For storing the dialogRef in the opened modal. */
+  dialogRef: MatDialogRef<any>;
+
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
@@ -38,15 +41,11 @@ export class WeeklyGoalsComponent implements OnInit {
 
   /** Open add or edit goals modal for weekly goals. */
   openModal(editClicked: boolean) {
-    this.snackBar.open(
-      'Clicked on edit icon',
-      '',
-      {
-        duration: 3000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      },
-    );
+    this.dialogRef = this.dialog.open(WeeklyGoalsModalComponent, {
+      height: '90%',
+      position: { bottom: '0' },
+      panelClass: 'goal-modal-panel',
+    });
   }
 
   // --------------- OTHER -------------------------------
@@ -54,6 +53,7 @@ export class WeeklyGoalsComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
