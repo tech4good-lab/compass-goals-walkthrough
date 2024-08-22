@@ -34,6 +34,49 @@ export class WeeklyGoalsComponent implements OnInit {
   /** For storing the dialogRef in the opened modal. */
   dialogRef: MatDialogRef<any>;
 
+  /** Just one goal for now */
+  incompleteWeeklyGoals: WeeklyGoalData = {
+    __id: 'wg1',
+    __userId: 'test-user',
+    __quarterlyGoalId: 'qg1',
+    __hashtagId: 'ht1',
+    text: 'Finish Google Cover Letter',
+    completed: false,
+    order: 1,
+    _createdAt: Timestamp.now(),
+    _updatedAt: Timestamp.now(),
+    _deleted: false,
+    hashtag: {
+      __id: 'ht1',
+      name: 'coverletter',
+      color: '#EE8B72',
+      _createdAt: Timestamp.now(),
+      _updatedAt: Timestamp.now(),
+      _deleted: false,
+    },
+  };
+
+  /** No associated weekly goals tally needed */
+  allQuarterlyGoals: Partial<QuarterlyGoalData> = {
+    __id: 'qg1',
+    __userId: 'test-user',
+    __hashtagId: 'ht1',
+    text: 'Finish cover letters',
+    completed: false,
+    order: 1,
+    _createdAt: Timestamp.now(),
+    _updatedAt: Timestamp.now(),
+    _deleted: false,
+    hashtag: {
+      __id: 'ht1',
+      name: 'coverletter',
+      color: '#EE8B72',
+      _createdAt: Timestamp.now(),
+      _updatedAt: Timestamp.now(),
+      _deleted: false,
+    },
+  };
+
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
@@ -45,6 +88,10 @@ export class WeeklyGoalsComponent implements OnInit {
       height: '90%',
       position: { bottom: '0' },
       panelClass: 'goal-modal-panel',
+      data: {
+        goalDatas: this.allQuarterlyGoals,
+        incompleteGoals: this.incompleteWeeklyGoals,
+      },
     });
   }
 

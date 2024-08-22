@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Injector, Inject, WritableSignal } from '@angular/core';
 import { WeeklyGoalsModalAnimations } from './weekly-goals-modal.animations';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -6,8 +6,9 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatOption } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import { MatDialogClose } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog';
 import { startOfWeek, endOfWeek } from 'src/app/core/utils/time.utils';
+import { QuarterlyGoalData, WeeklyGoalData } from '../../home.model';
 
 @Component({
   selector: 'app-weekly-goals-modal',
@@ -41,12 +42,16 @@ export class WeeklyGoalsModalComponent implements OnInit {
   // --------------- OTHER -------------------------------
 
   constructor(
-    private injector: Injector,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      goalDatas: Partial<QuarterlyGoalData>,
+      incompleteGoals: WeeklyGoalData,
+    },
   ) {
   }
 
   // --------------- LOAD AND CLEANUP --------------------
 
   ngOnInit(): void {
+    console.log(this.data.goalDatas, this.data.incompleteGoals)
   }
 }
