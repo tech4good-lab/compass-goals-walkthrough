@@ -11,6 +11,7 @@
       }
       .close-button {
         color: #4B5853;
+        transform: scale(1.4);
       }
     }
     .date-range {
@@ -21,6 +22,8 @@
   .goal-list {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
     .goal-item {
       display: flex;
       .drag-indicator, .trash-label {
@@ -28,8 +31,13 @@
       }
       fieldset {
         display: flex;
+        flex: 1;
+        flex-shrink: inherit;
         border: none;
         border-radius: 8px;
+        .goal-input {
+          flex: 1;
+        }
       }
       input[type=checkbox] {
         display: none;
@@ -39,8 +47,6 @@
   .add-goal {
     color: #5A5A5A;
     font-size: 16px;
-    margin-left: 16px;
-    margin-bottom: 20px;
     background-color: transparent;
     border: none;
   }
@@ -53,10 +59,11 @@
       color: #ffffff;
       font-size: 16px;
       font-weight: bold;
+      height: 42px;
+      width: 111px;
       &:hover {
         background: #1f9e91;
       }
     }
   }
 }
-
