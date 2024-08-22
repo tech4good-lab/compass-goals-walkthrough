@@ -1,22 +1,36 @@
-<h1>Weekly Goals</h1>
-<button mat-icon-button class="close-button" mat-dialog-close>
-   <mat-icon>close</mat-icon>
-</button>
-<div class="date-range">8/18 - 8/24</div>
-<mat-icon class="drag-indicator">drag_indicator</mat-icon>
-<fieldset class="field-wrapper">
-   <mat-form-field class="goal-input">
-      <input matInput placeholder="Enter your goal..."/>
-   </mat-form-field>
-   <mat-form-field class="goal-dropdown">
-      <mat-select placeholder="Select a hashtag">
-         <mat-option [value]="'hashtagId'" [style.color]="'#2DBDB1'">#coverletter</mat-option>
-      </mat-select>
-   </mat-form-field>
-</fieldset>
-<input id="trash" type="checkbox">
-<label for="trash" class="trash-label">
-   <mat-icon class="delete" aria-hidden="false" aria-label="trash icon">delete</mat-icon>
-</label>
-<button class="add-goal" mat-button aria-label="Add goal">+ Add a weekly goal</button>
-<button class="save-button">Save</button>
+<div class="weekly-goals-modal-container">
+   <header class="header">
+      <div class="top-row">
+         <h1>Weekly Goals</h1>
+         <button mat-icon-button class="close-button" mat-dialog-close>
+            <mat-icon>close</mat-icon>
+         </button>
+      </div>
+      <div class="date-range">8/18 - 8/24</div>
+   </header>
+   <form>
+      <section class="goal-list">
+         <div class="goal-item">
+            <mat-icon class="drag-indicator">drag_indicator</mat-icon>
+            <fieldset class="field-wrapper">
+               <mat-form-field class="goal-input">
+                  <input matInput placeholder="Enter your goal..."/>
+               </mat-form-field>
+               <mat-form-field class="goal-dropdown">
+                  <mat-select placeholder="Select a hashtag">
+                     <mat-option [value]="'hashtagId'" [style.color]="'#2DBDB1'">#coverletter</mat-option>
+                  </mat-select>
+               </mat-form-field>
+            </fieldset>
+            <input id="trash" type="checkbox">
+            <label for="trash" class="trash-label">
+               <mat-icon class="delete" aria-hidden="false" aria-label="trash icon">delete</mat-icon>
+            </label>
+         </div>
+      </section>
+   </form>
+   <button class="add-goal" mat-button aria-label="Add goal">+ Add a weekly goal</button>
+   <div class="modified-goals">
+      <button class="save-button">Save</button>
+   </div>
+</div>

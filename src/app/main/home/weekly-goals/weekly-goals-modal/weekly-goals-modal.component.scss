@@ -1,34 +1,40 @@
-h1 {
-  color: #4B5853;
-  font-size: 28px;
-  font-weight: 400;
+.weekly-goals-modal-container {
+  .header {
+    color: #4B5853;
+    .top-row {
+      h1 {
+        font-size: 28px;
+        font-weight: 400;
+      }
+      .close-button {
+        color: #4B5853;
+      }
+    }
+    .date-range {
+      font-weight: bold;
+      font-size: 22px;      
+    }
+  }
+  .goal-list {
+    .goal-item {
+      .drag-indicator, .trash-label {
+        color: #2dbdb1;
+      }
+      input[type=checkbox] {
+        display: none;
+      }
+    }
+  }
+  .add-goal {
+    color: #5A5A5A;
+    font-size: 16px;
+  }
+  .modified-goals {
+    .save-button {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 }
 
-.close-button {
-  color: #4B5853;
-}
-
-.date-range {
-  color: #4B5853;
-  font-weight: bold;
-  font-size: 22px;      
-}
-
-.drag-indicator, .trash-label {
-  color: #2dbdb1;
-}
-
-input[type=checkbox] {
-  display: none;
-}
-
-.add-goal {
-  color: #5A5A5A;
-  font-size: 16px;
-}
-
-.save-button {
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: bold;
-}
