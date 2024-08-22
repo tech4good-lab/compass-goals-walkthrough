@@ -100,23 +100,28 @@ export class WeeklyGoalsModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: {
-      goalDatas: Partial<QuarterlyGoalData>,
-      incompleteGoals: WeeklyGoalData,
+      goalDatas: Partial<QuarterlyGoalData>[],
+      incompleteGoals: WeeklyGoalData[],
     },
   ) {
     // Initialize the quarterGoalsForm with the set of incompleteGoals
     this.allGoals.clear();
-    this.addGoalToForm({
-      text: this.data.incompleteGoals.text,
-      __quarterlyGoalId: this.data.incompleteGoals.__quarterlyGoalId,
-      originalText: this.data.incompleteGoals.text,
-      originalOrder: this.data.incompleteGoals.order,
-      originalQuarterlyGoalId: this.data.incompleteGoals. __quarterlyGoalId,
-      __weeklyGoalId: this.data.incompleteGoals.__id,
-      _deleted: this.data.incompleteGoals._deleted,
-      _new: false,
-    });
-    console.log(this.allGoals)
+    if (this.data.incompleteGoals.length == 0) {
+      this.addGoalToForm(null);
+    } else {
+      this.data.incompleteGoals.forEach((goal) => {
+        this.addGoalToForm({
+          text: goal.text,
+          __quarterlyGoalId: goal.__quarterlyGoalId,
+          originalText: goal.text,
+          originalOrder: goal.order,
+          originalQuarterlyGoalId: goal. __quarterlyGoalId,
+          __weeklyGoalId: goal.__id,
+          _deleted: goal._deleted,
+          _new: false,
+        });
+      });
+    }
   }
 
   // --------------- LOAD AND CLEANUP --------------------

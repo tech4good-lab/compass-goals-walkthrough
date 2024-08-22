@@ -19,7 +19,9 @@
                   </mat-form-field>
                   <mat-form-field class="goal-dropdown">
                      <mat-select formControlName="__quarterlyGoalId" placeholder="Select a hashtag">
-                        <mat-option [value]="'hashtagId'" [style.color]="'#2DBDB1'">#coverletter</mat-option>
+                        @for (entity of data.goalDatas; track entity.__id) {
+                           <mat-option [value]="entity.__id" [style.color]="entity.hashtag?.color">#{{entity.hashtag?.name}}</mat-option>
+                        }
                      </mat-select>
                   </mat-form-field>
                </fieldset>
