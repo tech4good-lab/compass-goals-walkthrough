@@ -1,6 +1,5 @@
 .weekly-goals-modal-container {
   .header {
-    color: #4B5853;
     .top-row {
       h1 {
         font-size: 28px;
@@ -20,6 +19,10 @@
       .drag-indicator, .trash-label {
         color: #2dbdb1;
       }
+      fieldset {
+        border: none;
+        border-radius: 8px;
+      }
       input[type=checkbox] {
         display: none;
       }
@@ -28,12 +31,20 @@
   .add-goal {
     color: #5A5A5A;
     font-size: 16px;
+    background-color: transparent;
+    border: none;
   }
   .modified-goals {
     .save-button {
+      background: #2dbdb1;
+      border: none;
+      border-radius: 10px;
       color: #ffffff;
       font-size: 16px;
       font-weight: bold;
+      &:hover {
+        background: #1f9e91;
+      }
     }
   }
 }
