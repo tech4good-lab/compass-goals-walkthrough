@@ -4,10 +4,22 @@ h1 {
   font-weight: 400;
 }
 
+.close-button {
+  color: #4B5853;
+}
+
 .date-range {
   color: #4B5853;
   font-weight: bold;
   font-size: 22px;      
+}
+
+.drag-indicator, .trash-label {
+  color: #2dbdb1;
+}
+
+input[type=checkbox] {
+  display: none;
 }
 
 .add-goal {

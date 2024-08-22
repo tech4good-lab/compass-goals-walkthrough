@@ -1,5 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, Injector } from '@angular/core';
 import { WeeklyGoalsModalAnimations } from './weekly-goals-modal.animations';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField } from '@angular/material/form-field';
+import { MatOption } from '@angular/material/core';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatDialogClose } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-weekly-goals-modal',
@@ -9,6 +16,13 @@ import { WeeklyGoalsModalAnimations } from './weekly-goals-modal.animations';
   animations: WeeklyGoalsModalAnimations,
   standalone: true,
   imports: [
+    MatIconButton,
+    MatDialogClose,
+    MatIcon,
+    MatFormField,
+    MatInput,
+    MatSelect,
+    MatOption,
   ],
 })
 export class WeeklyGoalsModalComponent implements OnInit {
