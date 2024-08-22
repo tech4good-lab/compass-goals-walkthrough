@@ -92,3 +92,10 @@
     }
   }
 }
+
+/** non-nested styling here because cdk-drag-drop styling can't be nested in container */
+.cdk-drag-preview,
+.cdk-drag-placeholder {
+  background: white;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}

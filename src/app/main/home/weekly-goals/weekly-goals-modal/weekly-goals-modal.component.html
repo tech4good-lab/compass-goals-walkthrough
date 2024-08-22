@@ -9,10 +9,10 @@
       <div class="date-range">{{ startOfWeek() + ' - ' + endOfWeek() }}</div>
    </header>
    <form [formGroup]="weeklyGoalsForm">
-      <section class="goal-list" formArrayName="allGoals">
-         <div *ngFor="let goal of allGoals.controls; let i=index">
+      <section class="goal-list" formArrayName="allGoals" cdkDropList (cdkDropListDropped)="drop($event)">
+         <div *ngFor="let goal of allGoals.controls; let i=index" cdkDrag cdkDragPreviewContainer="parent">
             <div [formGroupName]="i" class="goal-item">
-               <mat-icon class="drag-indicator">drag_indicator</mat-icon>
+               <mat-icon class="drag-indicator" cdkDragHandle>drag_indicator</mat-icon>
                <fieldset class="field-wrapper">
                   <mat-form-field class="goal-input">
                      <input matInput formControlName="text" placeholder="Enter your goal..."/>
