@@ -5,6 +5,7 @@
     flex-direction: column;
     .top-row {
       display: flex;
+      align-items: center;
       h1 {
         font-size: 28px;
         font-weight: 400;
@@ -12,6 +13,8 @@
       .close-button {
         color: #4B5853;
         transform: scale(1.4);
+        margin-left: auto;
+        justify-self: flex-end;
       }
     }
     .date-range {
@@ -26,6 +29,8 @@
     scrollbar-width: none;
     .goal-item {
       display: flex;
+      align-items: center;
+      justify-content: center;
       .drag-indicator, .trash-label {
         color: #2dbdb1;
       }
@@ -52,6 +57,8 @@
   }
   .modified-goals {
     display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
     .save-button {
       background: #2dbdb1;
       border: none;
@@ -67,3 +74,4 @@
     }
   }
 }
+
