@@ -7,6 +7,7 @@ import { MatOption } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatDialogClose } from '@angular/material/dialog';
+import { startOfWeek, endOfWeek } from 'src/app/core/utils/time.utils';
 
 @Component({
   selector: 'app-weekly-goals-modal',
@@ -29,6 +30,11 @@ export class WeeklyGoalsModalComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
 
   // --------------- LOCAL UI STATE ----------------------
+
+  // --------------- COMPUTED DATA ----------------------
+
+  startOfWeek = startOfWeek;
+  endOfWeek = endOfWeek;
 
   // --------------- EVENT HANDLING ----------------------
 
