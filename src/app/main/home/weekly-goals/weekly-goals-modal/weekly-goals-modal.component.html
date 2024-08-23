@@ -13,7 +13,7 @@
          <div *ngFor="let goal of allGoals.controls; let i=index" cdkDrag cdkDragPreviewContainer="parent">
             <div [formGroupName]="i" class="goal-item">
                <mat-icon class="drag-indicator" cdkDragHandle>drag_indicator</mat-icon>
-               <fieldset class="field-wrapper">
+               <fieldset class="field-wrapper" [disabled]="this.allGoals.at(i).value._deleted">
                   <mat-form-field class="goal-input">
                      <input matInput formControlName="text" placeholder="Enter your goal..."/>
                   </mat-form-field>
@@ -25,9 +25,10 @@
                      </mat-select>
                   </mat-form-field>
                </fieldset>
-               <input id="trash" type="checkbox" formControlName="_deleted">
-               <label for="trash" class="trash-label">
+               <input id="trash-{{i}}" type="checkbox" formControlName="_deleted" [checked]="weeklyGoalsForm.get(['allGoals', i, '_deleted'])">
+               <label for="trash-{{i}}" class="trash-label">
                   <mat-icon class="delete" aria-hidden="false" aria-label="trash icon">delete</mat-icon>
+                  <mat-icon class="restore" aria-hidden="false" aria-label="trash icon">restore_from_trash</mat-icon>
                </label>
             </div>
          </div>
@@ -35,6 +36,6 @@
    </form>
    <button class="add-goal" mat-button aria-label="Add goal">+ Add a weekly goal</button>
    <div class="modified-goals">
-      <button class="save-button">Save</button>
+      <button class="save-button"type="submit" [disabled]="!weeklyGoalsForm.valid">Save</button>
    </div>
 </div>
