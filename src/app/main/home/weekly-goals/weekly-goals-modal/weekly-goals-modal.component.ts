@@ -125,6 +125,11 @@ export class WeeklyGoalsModalComponent implements OnInit {
     formArray.setControl(to, temp);
   }
 
+  /** Save any updates for any of the goals. */
+  saveGoals() {
+    this.data.updateWeeklyGoals(this.allGoals);
+  }
+
   // --------------- OTHER -------------------------------
 
   constructor(
@@ -132,6 +137,7 @@ export class WeeklyGoalsModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {
       goalDatas: Partial<QuarterlyGoalData>[],
       incompleteGoals: WeeklyGoalData[],
+      updateWeeklyGoals: ( weeklyGoalsFormArray: FormArray ) => void,
     },
   ) {
     // Initialize the quarterGoalsForm with the set of incompleteGoals

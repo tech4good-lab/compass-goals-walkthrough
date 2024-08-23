@@ -169,6 +169,18 @@ export class WeeklyGoalsComponent implements OnInit {
       data: {
         goalDatas: this.allQuarterlyGoals,
         incompleteGoals: this.incompleteWeeklyGoals,
+        updateWeeklyGoals: async (weeklyGoalsFormArray) => {
+          this.snackBar.open(
+            "Goals were edited",
+            '',
+            {
+              duration: 3000,
+              verticalPosition: 'bottom',
+              horizontalPosition: 'center',
+            },
+          );
+          this.dialogRef.close();
+        },
       },
     });
   }

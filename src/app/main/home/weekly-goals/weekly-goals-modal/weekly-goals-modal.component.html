@@ -8,7 +8,7 @@
       </div>
       <div class="date-range">{{ startOfWeek() + ' - ' + endOfWeek() }}</div>
    </header>
-   <form [formGroup]="weeklyGoalsForm">
+   <form [formGroup]="weeklyGoalsForm" (ngSubmit)="saveGoals()">
       <section class="goal-list" formArrayName="allGoals" cdkDropList (cdkDropListDropped)="drop($event)">
          <div *ngFor="let goal of allGoals.controls; let i=index" cdkDrag cdkDragPreviewContainer="parent">
             <div [formGroupName]="i" class="goal-item">
@@ -33,9 +33,9 @@
             </div>
          </div>
       </section>
+      <button class="add-goal" type="button" mat-button aria-label="Add goal" (click)="addGoalToForm(null)">+ Add a weekly goal</button>
+      <div class="modified-goals">
+         <button class="save-button" type="submit" [disabled]="!weeklyGoalsForm.valid">Save</button>
+      </div>
    </form>
-   <button class="add-goal" mat-button aria-label="Add goal">+ Add a weekly goal</button>
-   <div class="modified-goals">
-      <button class="save-button"type="submit" [disabled]="!weeklyGoalsForm.valid">Save</button>
-   </div>
 </div>
