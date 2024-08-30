@@ -14,26 +14,17 @@ import { NgStyle } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: QuarterlyGoalsItemAnimations,
   standalone: true,
-  imports: [
-    MatCheckbox,
-    NgStyle,
-  ],
+  imports: [],
 })
 export class QuarterlyGoalsItemComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
 
-  goal = input.required<QuarterlyGoalData>();
-  checked = output<QuarterlyGoalData>();
 
   // --------------- LOCAL UI STATE ----------------------
 
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
-   /** Update weekly goal. */
-   checkGoal(goal: QuarterlyGoalData) {
-    this.checked.emit(goal);
-  }
 
   // --------------- OTHER -------------------------------
 
