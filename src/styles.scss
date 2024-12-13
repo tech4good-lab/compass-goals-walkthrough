@@ -1,26 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat;
-@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
-
-@include mat.core();
-
-$primary: #2dbdb1;
-$secondary: #e1fbf9;
-
-$compass-theme: mat.define-theme(
-  (
-    typography: (
-      plain-family: 'Oxygen',
-      brand-family: 'Oxygen',
-    ),
-  )
-);
-
-html {
-  @include mat.core-theme($compass-theme);
-  @include mat.typography-hierarchy($compass-theme);
-  @include mat.all-component-typographies($compass-theme);
-}
 
 html,
 body,
@@ -30,26 +8,4 @@ app-root {
   padding: 0;
   overflow-x: clip;
   margin: 0;
-}
-
-mat-checkbox {
-  --mdc-checkbox-selected-focus-icon-color: #{$primary};
-  --mdc-checkbox-selected-hover-icon-color: #{$primary};
-  --mdc-checkbox-selected-icon-color: #{$primary};
-  --mdc-checkbox-selected-pressed-icon-color: #{$primary};
-  --mdc-checkbox-unselected-icon-color: #{$primary};
-  --mdc-checkbox-unselected-focus-icon-color: #{$primary};
-  --mdc-checkbox-unselected-hover-icon-color: #{$primary};
-  --mdc-checkbox-unselected-focus-state-layer-color: #{$secondary};
-  --mdc-checkbox-unselected-hover-state-layer-color: #{$secondary};
-  --mdc-checkbox-unselected-pressed-state-layer-color: #{$secondary};
-  --mdc-checkbox-selected-focus-state-layer-color: #{$secondary};
-  --mdc-checkbox-selected-hover-state-layer-color: #{$secondary};
-  --mdc-checkbox-selected-pressed-state-layer-color: #{$secondary};
-  --mat-checkbox-label-text-color: white;
-}
-
-/* This customizes the corners of the weekly/quarterly/long-term goal modals. */
-.goal-modal-panel .mat-mdc-dialog-surface {
-  border-radius: 10px 10px 0 0 !important;
 }

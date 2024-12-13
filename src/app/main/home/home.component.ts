@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HomeAnimations } from './home.animations';
-import { WeeklyGoalsComponent } from './weekly-goals/weekly-goals.component';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +8,7 @@ import { WeeklyGoalsComponent } from './weekly-goals/weekly-goals.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   animations: HomeAnimations,
-  imports: [
-    // Containers
-    WeeklyGoalsComponent,
-  ],
+  imports: [],
 })
 export class HomeComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
