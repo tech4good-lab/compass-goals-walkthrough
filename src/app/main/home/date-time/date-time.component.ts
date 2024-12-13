@@ -1,17 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { HomeAnimations } from './home.animations';
-import { DateTimeComponent } from "./date-time/date-time.component";
+import { Component,OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { DateTimeAnimations } from './date-time.animations';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-date-time',
+  templateUrl: './date-time.component.html',
+  styleUrls: ['./date-time.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: DateTimeAnimations,
   standalone: true,
-  animations: HomeAnimations,
-  imports: [DateTimeComponent],
+  imports: [],
 })
-export class HomeComponent implements OnInit {
+export class DateTimeComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
 
   // --------------- LOCAL UI STATE ----------------------
@@ -26,5 +25,5 @@ export class HomeComponent implements OnInit {
 
   // --------------- LOAD AND CLEANUP --------------------
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 }
