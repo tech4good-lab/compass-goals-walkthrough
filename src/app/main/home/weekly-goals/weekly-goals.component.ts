@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
 import { QuarterlyGoalData, WeeklyGoalData } from '../home.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WeeklyGoalsHeaderComponent } from "./weekly-goals-header/weekly-goals-header.component";
+import { Timestamp } from '@angular/fire/firestore';
+import { HashtagStore, LoadHashtag } from 'src/app/core/store/hashtag/hashtag.store';
+import { LoadQuarterlyGoal, QuarterlyGoalStore } from 'src/app/core/store/quarterly-goal/quarterly-goal.store';
+import { getStartWeekDate } from 'src/app/core/utils/time.utils';
+import { AuthStore } from 'src/app/core/store/auth/auth.store';
+import { WeeklyGoalStore } from 'src/app/core/store/weekly-goal/weekly-goal.store';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -19,6 +25,10 @@ import { WeeklyGoalsHeaderComponent } from "./weekly-goals-header/weekly-goals-h
   ],
 })
 export class WeeklyGoalsComponent implements OnInit {
+  readonly authStore = inject(AuthStore);
+  readonly hashtagStore = inject(HashtagStore);
+  readonly weeklyGoalStore = inject(WeeklyGoalStore);
+  readonly quarterlyGoalStore = inject(QuarterlyGoalStore);
   // --------------- INPUTS AND OUTPUTS ------------------
 
   // --------------- LOCAL UI STATE ----------------------
@@ -156,5 +166,51 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- LOAD AND CLEANUP --------------------
 
-  ngOnInit() {}
+  ngOnInit() {
+    // loading uncompleted goals
+    this.weeklyGoalStore.load(
+      [
+        ['__userId', '==', this.currentUser().__id],
+        ['completed', '==', false],
+      ],
+      { orderBy: 'order' },
+      (wg) => [
+        LoadQuarterlyGoal.create(
+          this.quarterlyGoalStore,
+          [['__id', '==', wg.__quarterlyGoalId]],
+          {},
+          (qg) => [
+            LoadHashtag.create(
+              this.hashtagStore,
+              [['__id', '==', qg.__hashtagId]],
+              {},
+            ),
+          ],
+        ),
+      ],
+    );
+
+    // loading completed goals
+    this.weeklyGoalStore.load(
+      [
+        ['__userId', '==', this.currentUser().__id],
+        ['endDate', '>=', Timestamp.fromDate(getStartWeekDate())],
+      ],
+      { orderBy: 'order' },
+      (wg) => [
+        LoadQuarterlyGoal.create(
+          this.quarterlyGoalStore,
+          [['__id', '==', wg.__quarterlyGoalId]],
+          {},
+          (qg) => [
+            LoadHashtag.create(
+              this.hashtagStore,
+              [['__id', '==', qg.__hashtagId]],
+              {},
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }
