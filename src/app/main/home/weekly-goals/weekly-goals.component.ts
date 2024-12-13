@@ -50,6 +50,18 @@ export class WeeklyGoalsComponent implements OnInit {
     );
   }
 
+  openModal(editClicked: boolean) {
+    this.snackBar.open(
+      `Edit goals clicked`,
+      '',
+      {
+        duration: 3000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      },
+    );
+  }
+
   // --------------- OTHER -------------------------------
 
   constructor(private snackBar: MatSnackBar) {}
