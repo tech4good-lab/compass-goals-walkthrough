@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OutputEmitterRef, Signal, input, output} from '@angular/core';
 import { WeeklyGoalsItemAnimations } from './weekly-goals-item.animations';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { WeeklyGoalData } from '../../home.model';
 
 @Component({
   selector: 'app-weekly-goals-item',
@@ -14,11 +15,18 @@ import { MatCheckbox } from '@angular/material/checkbox';
 export class WeeklyGoalsItemComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
 
+  goal: Signal<WeeklyGoalData> = input<WeeklyGoalData>();
+  checked: OutputEmitterRef<WeeklyGoalData> = output<WeeklyGoalData>();
+
   // --------------- LOCAL UI STATE ----------------------
 
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
+
+  checkGoal() {
+    this.checked.emit(this.goal());
+  }
 
   // --------------- OTHER -------------------------------
 
