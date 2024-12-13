@@ -11,6 +11,8 @@ import { HashtagStore, LoadHashtag } from 'src/app/core/store/hashtag/hashtag.st
 import { QuarterlyGoalStore, LoadQuarterlyGoal } from 'src/app/core/store/quarterly-goal/quarterly-goal.store';
 import { WeeklyGoalStore } from 'src/app/core/store/weekly-goal/weekly-goal.store';
 import { getStartWeekDate } from 'src/app/core/utils/time.utils';
+import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-modal.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -87,6 +89,10 @@ export class WeeklyGoalsComponent implements OnInit {
     });
   });
 
+
+  /** For storing the dialogRef in the opened modal. */
+  dialogRef: MatDialogRef<any>;
+
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
@@ -104,21 +110,18 @@ export class WeeklyGoalsComponent implements OnInit {
   }
 
   openModal(editClicked: boolean) {
-    this.snackBar.open(
-      `Edit goals clicked`,
-      '',
-      {
-        duration: 3000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      },
-    );
+    this.dialogRef = this.dialog.open(WeeklyGoalsModalComponent, {
+      height: '90%',
+      position: { bottom: '0' },
+      panelClass: 'goal-modal-panel',
+    });
   }
 
   // --------------- OTHER -------------------------------
 
   constructor(
     private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) {}
 
   // --------------- LOAD AND CLEANUP --------------------
