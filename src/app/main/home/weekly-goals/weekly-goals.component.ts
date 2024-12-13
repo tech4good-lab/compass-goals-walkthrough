@@ -123,22 +123,101 @@ export class WeeklyGoalsComponent implements OnInit {
         incompleteGoals: this.incompleteWeeklyGoals(),
         loading: this.loading,
         updateWeeklyGoals: async (weeklyGoalsFormArray) => {
-          this.snackBar.open(
-            `Goals edited!`,
-            '',
-            {
-              duration: 3000,
-              verticalPosition: 'bottom',
-              horizontalPosition: 'center',
-            },
-          );
-          this.dialogRef.close();
-        }
-      }
+          try {
+            await Promise.all(
+              weeklyGoalsFormArray.controls.map(async (control, i) => {
+                // if this is a new quarter goal
+                if (!control.value.__weeklyGoalId) {
+                  await this.addNewGoal(control.value, i);
+                  // if it's a goal that's getting deleted
+                } else if (control.value._deleted) {
+                  await this.removeGoal(control.value);
+                  // if it's a goal that's getting updated
+                } else {
+                  await this.updateGoal(control.value, i);
+                }
+              })
+            );
+            this.dialogRef.close();
+          } catch (e) {
+            console.error(e);
+          }
+        },
+      },
     });
   }
 
   // --------------- OTHER -------------------------------
+
+  /** Adds a goal based off form values */
+  async addNewGoal(controlValue, i) {
+    // Add a quarterly goal
+    await this.weeklyGoalStore.add(
+      Object.assign(
+        {},
+        {
+          __userId: this.currentUser().__id,
+          __quarterlyGoalId: controlValue.__quarterlyGoalId,
+          text: controlValue.text,
+          completed: false,
+          order: i + 1,
+          _deleted: controlValue._deleted,
+        }
+      ),
+      {
+        snackBarConfig: {
+          successMessage: 'Goal added',
+          failureMessage: 'Goal not added successfully',
+          undoOnAction: true,
+          config: { duration: 5000 },
+        },
+      }
+    );
+  }
+
+  /** Removes some goal based off form values */
+  async removeGoal(controlValue) {
+    // no restrictions on deleting weekly goals, unlike quarterly goals
+    await this.weeklyGoalStore.remove(controlValue.__weeklyGoalId, {
+      snackBarConfig: {
+        successMessage: 'Goal deleted',
+        failureMessage: 'Goal not deleted successfully',
+        undoOnAction: true,
+        config: { duration: 5000 },
+      },
+    });
+  }
+
+  /** Updates some goal based off form values */
+  async updateGoal(controlValue, i) {
+    // text or quarterly goal has changed, general update
+    if (
+      controlValue.originalText !== controlValue.text ||
+      controlValue.originalOrder !== i + 1 ||
+      (!controlValue.originalQuarterlyGoalId && controlValue.__quarterlyGoalId)
+    ) {
+      await this.weeklyGoalStore.update(
+        controlValue.__weeklyGoalId,
+        Object.assign(
+          {},
+          {
+            __quarterlyGoalId: controlValue.__quarterlyGoalId,
+            text: controlValue.text,
+            order: i + 1,
+            _deleted: controlValue._deleted,
+          }
+        ),
+        {
+          snackBarConfig: {
+            successMessage: 'Goal updated',
+            failureMessage: 'Goal not updated successfully',
+            undoOnAction: true,
+            config: { duration: 5000 },
+          },
+        }
+      );
+    }
+  }
 
   constructor(
     private snackBar: MatSnackBar,
