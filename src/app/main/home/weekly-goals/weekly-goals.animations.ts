@@ -1,4 +1,12 @@
-import { trigger, group, query, animateChild, state, style, animate, transition } from '@angular/animations';
+import {
+  trigger,
+  group,
+  query,
+  animateChild,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
-export const WeeklyGoalsAnimations = [
-];
+export const WeeklyGoalsAnimations = [];

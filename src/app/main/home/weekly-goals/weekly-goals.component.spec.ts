@@ -9,8 +9,7 @@ describe('WeeklyGoalsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [WeeklyGoalsComponent],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

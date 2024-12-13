@@ -25,11 +25,9 @@ export class HomeComponent implements OnInit {
 
   // --------------- OTHER -------------------------------
 
-  constructor() {
-  }
+  constructor() {}
 
   // --------------- LOAD AND CLEANUP --------------------
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

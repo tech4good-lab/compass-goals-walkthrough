@@ -1,28 +1,16 @@
-$card-max-width: max(280px, 30vw);
-$card-background-color: #fff;
-$card-border-color: #ade1dd;
-$card-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-
 .home-container {
-   padding-top: 35px;
-   height: 100%;
-   display: flex;
-   flex-direction: column;
-   gap: 20px;
-   .goals {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      app-weekly-goals {
-         display: flex;
-         flex-direction: column;
-         width: 100%;
-         height: 100%;
-         width: $card-max-width;
-         font-family: 'Oxygen', sans-serif;
-         padding: 10px;
-      }
-   }
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  overflow-y: hidden;
+  .goals {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    app-weekly-goals {
+      height: 100%;
+    }
+  }
 }
