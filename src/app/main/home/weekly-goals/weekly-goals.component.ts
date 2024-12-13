@@ -3,6 +3,7 @@ import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
 import { WeeklyGoalData } from '../home.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { WeeklyGoalsHeaderComponent } from "./weekly-goals-header/weekly-goals-header.component";
 
 @Component({
   selector: 'app-weekly-goals',
@@ -11,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: WeeklyGoalsAnimations,
   standalone: true,
-  imports: [WeeklyGoalsItemComponent],
+  imports: [WeeklyGoalsItemComponent, WeeklyGoalsHeaderComponent],
 })
 export class WeeklyGoalsComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
