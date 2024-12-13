@@ -48,8 +48,3 @@ mat-checkbox {
   --mdc-checkbox-selected-pressed-state-layer-color: #{$secondary};
   --mat-checkbox-label-text-color: white;
 }
-
-/* This customizes the corners of the weekly/quarterly/long-term goal modals. */
-.goal-modal-panel .mat-mdc-dialog-surface {
-  border-radius: 10px 10px 0 0 !important;
-}
