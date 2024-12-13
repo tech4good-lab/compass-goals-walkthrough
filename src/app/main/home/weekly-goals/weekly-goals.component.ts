@@ -3,6 +3,7 @@ import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
 import { QuarterlyGoalData, WeeklyGoalData } from '../home.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { WeeklyGoalsHeaderComponent } from "./weekly-goals-header/weekly-goals-header.component";
 import { User } from '@angular/fire/auth';
 import { Timestamp } from '@angular/fire/firestore';
@@ -11,6 +12,7 @@ import { HashtagStore, LoadHashtag } from 'src/app/core/store/hashtag/hashtag.st
 import { QuarterlyGoalStore, LoadQuarterlyGoal } from 'src/app/core/store/quarterly-goal/quarterly-goal.store';
 import { WeeklyGoalStore } from 'src/app/core/store/weekly-goal/weekly-goal.store';
 import { getStartWeekDate } from 'src/app/core/utils/time.utils';
+import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-modal.component';
 
 @Component({
   selector: 'app-weekly-goals',
@@ -108,21 +110,18 @@ export class WeeklyGoalsComponent implements OnInit {
   }
 
   openModal(editClicked: boolean) {
-    this.snackBar.open(
-      `Edit goals clicked`,
-      '',
-      {
-        duration: 3000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      },
-    );
+    this.dialogRef = this.dialog.open(WeeklyGoalsModalComponent, {
+      height: '90%',
+      position: { bottom: '0' },
+      panelClass: 'goal-modal-panel',
+    });
   }
 
   // --------------- OTHER -------------------------------
 
   constructor(
     private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) {}
 
   // --------------- LOAD AND CLEANUP --------------------
