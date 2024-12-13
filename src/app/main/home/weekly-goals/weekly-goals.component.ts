@@ -28,6 +28,7 @@ import { WeeklyGoalsModalComponent } from './weekly-goals-modal/weekly-goals-mod
   ],
 })
 
+
 export class WeeklyGoalsComponent implements OnInit {
   readonly authStore = inject(AuthStore);
   readonly hashtagStore = inject(HashtagStore);
