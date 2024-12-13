@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { WeeklyGoalsAnimations } from './weekly-goals.animations';
 import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
 import { QuarterlyGoalData, WeeklyGoalData } from '../home.model';
@@ -93,6 +93,9 @@ export class WeeklyGoalsComponent implements OnInit {
   /** For storing the dialogRef in the opened modal. */
   dialogRef: MatDialogRef<any>;
 
+  /** Loading icon. */
+  loading: WritableSignal<boolean> = signal(false);
+
   // --------------- COMPUTED DATA -----------------------
 
   // --------------- EVENT HANDLING ----------------------
@@ -114,6 +117,23 @@ export class WeeklyGoalsComponent implements OnInit {
       height: '90%',
       position: { bottom: '0' },
       panelClass: 'goal-modal-panel',
+      data: {
+        goalDatas: this.quarterlyGoals(),
+        incompleteGoals: this.incompleteWeeklyGoals(),
+        loading: this.loading,
+        updateWeeklyGoals: async (weeklyGoalsFormArray) => {
+          this.snackBar.open(
+            `Goals edited!`,
+            '',
+            {
+              duration: 3000,
+              verticalPosition: 'bottom',
+              horizontalPosition: 'center',
+            },
+          );
+          this.dialogRef.close();
+        }
+      }
     });
   }
 
