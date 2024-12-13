@@ -1,17 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { WeeklyGoalsAnimations } from './weekly-goals.animations';
-import { WeeklyGoalsItemComponent } from './weekly-goals-item/weekly-goals-item.component';
+import { WeeklyGoalsItemAnimations } from './weekly-goals-item.animations';
 
 @Component({
-  selector: 'app-weekly-goals',
-  templateUrl: './weekly-goals.component.html',
-  styleUrls: ['./weekly-goals.component.scss'],
+  selector: 'app-weekly-goals-item',
+  templateUrl: './weekly-goals-item.component.html',
+  styleUrls: ['./weekly-goals-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: WeeklyGoalsAnimations,
+  animations: WeeklyGoalsItemAnimations,
   standalone: true,
-  imports: [WeeklyGoalsItemComponent],
+  imports: [],
 })
-export class WeeklyGoalsComponent implements OnInit {
+export class WeeklyGoalsItemComponent implements OnInit {
   // --------------- INPUTS AND OUTPUTS ------------------
 
   // --------------- LOCAL UI STATE ----------------------
@@ -26,5 +25,5 @@ export class WeeklyGoalsComponent implements OnInit {
 
   // --------------- LOAD AND CLEANUP --------------------
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 }
